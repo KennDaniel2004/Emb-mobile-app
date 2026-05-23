@@ -46,6 +46,7 @@ public class ExportManager {
     private static final String TAG        = "ExportManager";
     private static final String PREFS_NAME = "ExportNotifications";
     private static final String KEY_LINKS  = "notification_links";
+
     private static final int    GREEN     = Color.parseColor("#1a6b2d");
     private static final String GREEN_HEX = "1a6b2d";
 
@@ -83,8 +84,6 @@ public class ExportManager {
             exportDocx(record, cb);
         }).start();
     }
-
-
 
     // ==================== PDF EXPORT ====================
 
@@ -179,11 +178,7 @@ public class ExportManager {
         return y;
     }
 
-
-
-
-
-    //             PDF GENERAL INFORMATION
+    // ==================== PDF GENERAL INFORMATION ====================
 
     private int drawPdfGeneralInfo(Canvas c, MonitoringRecord r, int y) {
         Paint secBg = new Paint();
@@ -638,53 +633,51 @@ public class ExportManager {
         addDocxSectionHeader(doc, "1. GENERAL INFORMATION");
 
         String laws   = s(r.getLaws());
-        String pd1586 = laws.contains("PD-1586") ? "☒" : "☐";
-        String ra6969 = laws.contains("RA-6969") ? "☒" : "☐";
-        String ra9275 = laws.contains("RA-9275") ? "☒" : "☐";
-        String ra8749 = laws.contains("RA-8749") ? "☒" : "☐";
-        String ra9003 = laws.contains("RA-9003") ? "☒" : "☐";
+        String pd1586 = laws.contains("PD-1586") ? "\u2612" : "\u2610";
+        String ra6969 = laws.contains("RA-6969") ? "\u2612" : "\u2610";
+        String ra9275 = laws.contains("RA-9275") ? "\u2612" : "\u2610";
+        String ra8749 = laws.contains("RA-8749") ? "\u2612" : "\u2610";
+        String ra9003 = laws.contains("RA-9003") ? "\u2612" : "\u2610";
 
-        // ── Environmental Laws: header row (merged) + 2-column content row ──
-        XWPFTable lawsTable = doc.createTable(2, 2);
-        setTableWidth(lawsTable, 9500);
+        // ── Single unified table: rows 0-1 = laws, rows 2-8 = main info ──
+        // This avoids the inter-table gap paragraph that caused a blank row.
+        XWPFTable t = doc.createTable(9, 4);
+        setTableWidth(t, 9500);
 
-        // Header row – merge both columns
-        mergeCellsHorizontal(lawsTable, 0, 0, 1);
-        XWPFTableCell hdrCell = lawsTable.getRow(0).getCell(0);
+        // ── Row 0: Laws header (all 4 cols merged) ───────────────────────
+        mergeCellsHorizontal(t, 0, 0, 3);
+        XWPFTableCell hdrCell = t.getRow(0).getCell(0);
         hdrCell.removeParagraph(0);
         XWPFParagraph hdrP = hdrCell.addParagraph();
         hdrP.setSpacingAfter(0);
+        hdrP.setSpacingBefore(0);
         XWPFRun hdrR = hdrP.createRun();
         hdrR.setBold(true);
         hdrR.setFontSize(9);
         hdrR.setFontFamily("Times New Roman");
         hdrR.setText("Applicable Environmental Laws: (Pls. check box)");
 
-        // Left column: PD-1586, RA-6969, RA-9275
-        XWPFTableCell leftCell = lawsTable.getRow(1).getCell(0);
+        // ── Row 1: Laws content (cols 0-1 merged | cols 2-3 merged) ──────
+        mergeCellsHorizontal(t, 1, 0, 1);
+        mergeCellsHorizontal(t, 1, 2, 3);
+
+        XWPFTableCell leftCell = t.getRow(1).getCell(0);
         leftCell.removeParagraph(0);
         addCellLine(leftCell, pd1586 + " PD-1586", false, 9);
         addCellLine(leftCell, ra6969 + " RA-6969 (\u2610Survey  \u2612Routine)", false, 9);
         addCellLine(leftCell, ra9275 + " RA-9275 (\u2610Survey  \u2612Routine)", false, 9);
 
-        // Right column: RA-8749, MC 2022-003, RA-9003
-        XWPFTableCell rightCell = lawsTable.getRow(1).getCell(1);
+        XWPFTableCell rightCell = t.getRow(1).getCell(2);
         rightCell.removeParagraph(0);
         addCellLine(rightCell, ra8749 + " RA-8749 (\u2610Survey  \u2612Routine)", false, 9);
         addCellLine(rightCell, "Covered by MC 2022-003?  \u2610YES   \u2612NO", false, 9);
         addCellLine(rightCell, ra9003 + " RA-9003", false, 9);
 
-        styleLawsTable(lawsTable);
-
-        // ── Main info table (4 columns) ──────────────────────────────────
-        XWPFTable t = doc.createTable(7, 4);
-        setTableWidth(t, 9500);
-
-        // Row 0 – Name of Establishment | value | Geo-Coordinates | N\nE
-        setCellText(t, 0, 0, "Name of Establishment:", false);
-        setCellText(t, 0, 1, s(r.getNameOfEstablishment()), true);
-        setCellText(t, 0, 2, "Geo-Coordinates:", false);
-        XWPFTableCell geoCell = t.getRow(0).getCell(3);
+        // ── Row 2: Name of Establishment | value | Geo-Coordinates | N\nE ─
+        setCellText(t, 2, 0, "Name of Establishment:", false);
+        setCellText(t, 2, 1, s(r.getNameOfEstablishment()), true);
+        setCellText(t, 2, 2, "Geo-Coordinates:", false);
+        XWPFTableCell geoCell = t.getRow(2).getCell(3);
         geoCell.removeParagraph(0);
         XWPFParagraph geoPara = geoCell.addParagraph();
         geoPara.setSpacingAfter(0);
@@ -701,40 +694,40 @@ public class ExportManager {
         geoE.setBold(true);
         geoE.setText(s(r.getGeoE()) + " E");
 
-        // Row 1 – Proponent | value (cols 1–3 merged)
-        setCellText(t, 1, 0, "Proponent", false);
-        mergeCellsHorizontal(t, 1, 1, 3);
-        setCellText(t, 1, 1, s(r.getProponent()), true);
-
-        // Row 2 – Project Location | value (cols 1–3 merged)
-        setCellText(t, 2, 0, "Project Location", false);
-        mergeCellsHorizontal(t, 2, 1, 3);
-        setCellText(t, 2, 1, s(r.getProjectLocation()), true);
-
-        // Row 3 – Nature of Business | value (cols 1–3 merged)
-        setCellText(t, 3, 0, "Nature of Business:", false);
+        // ── Row 3: Proponent | value (cols 1-3 merged) ───────────────────
+        setCellText(t, 3, 0, "Proponent", false);
         mergeCellsHorizontal(t, 3, 1, 3);
-        setCellText(t, 3, 1, s(r.getNatureOfBusiness()), true);
+        setCellText(t, 3, 1, s(r.getProponent()), true);
 
-        // Row 4 – Year Established | value | PSIC Code | value
-        setCellText(t, 4, 0, "Year Established:", false);
-        setCellText(t, 4, 1, s(r.getYearEstablish()), true);
-        setCellText(t, 4, 2, "PSIC Code", false);
-        setCellText(t, 4, 3, s(r.getPsicCode()), true);
+        // ── Row 4: Project Location | value (cols 1-3 merged) ────────────
+        setCellText(t, 4, 0, "Project Location", false);
+        mergeCellsHorizontal(t, 4, 1, 3);
+        setCellText(t, 4, 1, s(r.getProjectLocation()), true);
 
-        // Row 5 – Operating hrs/day (label\nvalue) | days/week | days/year (cols 2–3 merged)
-        setCellTwoLine(t, 5, 0, "Operating hours/day:",  s(r.getOpHoursDay()));
-        setCellTwoLine(t, 5, 1, "Operating days/week:",  s(r.getOpDayWeek()));
-        mergeCellsHorizontal(t, 5, 2, 3);
-        setCellTwoLine(t, 5, 2, "Operating days/year:",  s(r.getOpDayYear()));
+        // ── Row 5: Nature of Business | value (cols 1-3 merged) ──────────
+        setCellText(t, 5, 0, "Nature of Business:", false);
+        mergeCellsHorizontal(t, 5, 1, 3);
+        setCellText(t, 5, 1, s(r.getNatureOfBusiness()), true);
 
-        // Row 6 – No. of employees: value | Male: value | Female: value (cols 2–3 merged)
-        setCellText(t, 6, 0, "No. of employees: " + s(r.getNumberOfEmployee()), false);
-        setCellText(t, 6, 1, "Male: " + s(r.getMale()), false);
-        mergeCellsHorizontal(t, 6, 2, 3);
-        setCellText(t, 6, 2, "Female: " + s(r.getFemale()), false);
+        // ── Row 6: Year Established | value | PSIC Code | value ──────────
+        setCellText(t, 6, 0, "Year Established:", false);
+        setCellText(t, 6, 1, s(r.getYearEstablish()), true);
+        setCellText(t, 6, 2, "PSIC Code", false);
+        setCellText(t, 6, 3, s(r.getPsicCode()), true);
 
-        styleNoTopBorder(t);
+        // ── Row 7: Op hrs/day | Op days/week | Op days/year (cols 2-3) ───
+        setCellTwoLine(t, 7, 0, "Operating hours/day:", s(r.getOpHoursDay()));
+        setCellTwoLine(t, 7, 1, "Operating days/week:", s(r.getOpDayWeek()));
+        mergeCellsHorizontal(t, 7, 2, 3);
+        setCellTwoLine(t, 7, 2, "Operating days/year:", s(r.getOpDayYear()));
+
+        // ── Row 8: No. of employees | Male | Female (cols 2-3 merged) ────
+        setCellText(t, 8, 0, "No. of employees: " + s(r.getNumberOfEmployee()), false);
+        setCellText(t, 8, 1, "Male: " + s(r.getMale()), false);
+        mergeCellsHorizontal(t, 8, 2, 3);
+        setCellText(t, 8, 2, "Female: " + s(r.getFemale()), false);
+
+        styleWholeTable(t);
 
         // ── Product Lines table (separate, 3 columns) ─────────────────────
         doc.createParagraph();
@@ -1056,35 +1049,6 @@ public class ExportManager {
         }
     }
 
-    /**
-     * Styles the environmental-laws table: outer border visible on all sides,
-     * internal horizontal border visible (separates header from content row),
-     * but NO internal vertical border (the two law columns share no dividing line).
-     */
-    private void styleLawsTable(XWPFTable table) {
-        // No bottom border — the main info table top border serves as the shared line
-        table.setTopBorder   (XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        table.setBottomBorder(XWPFTable.XWPFBorderType.NONE,   0, 0, "auto");
-        table.setLeftBorder  (XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        table.setRightBorder (XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        // Internal horizontal border (between header row and content row)
-        table.setInsideHBorder(XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        // No internal vertical border — left and right columns share no dividing line
-        table.setInsideVBorder(XWPFTable.XWPFBorderType.NONE, 0, 0, "auto");
-        table.setCellMargins(40, 40, 40, 40);
-    }
-
-    /** Like styleWholeTable but without a top border — used for tables that
-     *  sit immediately below the laws table so there is only one shared line. */
-    private void styleNoTopBorder(XWPFTable table) {
-        table.setInsideHBorder(XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        table.setInsideVBorder(XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        table.setTopBorder   (XWPFTable.XWPFBorderType.NONE,   0, 0, "auto");
-        table.setBottomBorder(XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        table.setLeftBorder  (XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        table.setRightBorder (XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
-        table.setCellMargins(40, 40, 40, 40);
-    }
 
     private void styleWholeTable(XWPFTable table) {
         table.setInsideHBorder(XWPFTable.XWPFBorderType.SINGLE, 1, 0, "000000");
