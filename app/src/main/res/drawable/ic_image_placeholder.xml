@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Background circle -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M12,2A10,10 0,1 1,2 12A10,10 0,0 1,12 2Z"/>
+
+    <!-- Image icon -->
+    <path
+        android:fillColor="#9E9E9E"
+        android:pathData="M5,17L8.5,12.5L11,15.5L14.5,11L19,17H5Z"/>
+
+    <!-- Small sun circle -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M15.5,8A1.5,1.5 0,1 1,12.5 8A1.5,1.5 0,0 1,15.5 8Z"/>
+
+</vector>

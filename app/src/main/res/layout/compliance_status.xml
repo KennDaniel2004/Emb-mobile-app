@@ -1,0 +1,1155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#C8E6C9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/green"
+        android:paddingStart="4dp"
+        android:paddingEnd="16dp">
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnBack"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:src="@drawable/ic_arrow_back"-->
+<!--            android:contentDescription="Back"-->
+<!--            app:tint="#FFFFFF" />-->
+
+        <TextView
+            android:layout_width="387dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="COMPLIANCE STATUS"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        android:background="@color/green"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:id="@+id/tabPd1586"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="PD 1586"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/tab_active_bg"
+            android:layout_marginEnd="3dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tabRa6969"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RA 6969"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tabRa8749"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RA 8749"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tabRa9275"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RA 9275"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tabRa9003"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RA 9003"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="3dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/mainScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#C8E6C9"
+        android:fillViewport="true">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="20dp">
+
+
+            <View
+                android:id="@+id/anchorPd1586"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PD 1586"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="PD 1586"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#212121"
+                        android:layout_marginBottom="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ECC 1"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etPd1586Ecc1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etPd1586Ecc1DateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etPd1586Ecc1DateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ECC 2"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etPd1586Ecc2"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etPd1586Ecc2DateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etPd1586Ecc2DateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ECC 3"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etPd1586Ecc3"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etPd1586Ecc3DateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etPd1586Ecc3DateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+            <View
+                android:id="@+id/anchorRa6969"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RA 6969"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RA 6969"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#212121"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="DENR Registry ID"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etRa6969DenrRegistry"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa6969DenrDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa6969DenrDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="PCL Compliance Certificate"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etRa6969PclCert"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa6969PclDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa6969PclDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Importer Clearance No."
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+
+                            android:id="@+id/etRa6969ImporterClearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa6969ImporterDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa6969ImporterDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CCO Registry"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etRa6969CcoRegistry"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa6969CcoDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa6969CcoDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Permit to Transport"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etRa6969PermitTransport"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa6969PermitDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa6969PermitDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Copy of COT issued by licensed\nTSD Facility"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etRa6969CotCopy"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa6969CotDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false" android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa6969CotDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+
+            <View
+                android:id="@+id/anchorRa8749"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RA 8749"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RA 8749"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#212121"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="PO No."
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etRa8749PoNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa8749PoDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa8749PoDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+            <View
+                android:id="@+id/anchorRa9275"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RA 9275"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RA 9275"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#212121"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Discharge Permit No."
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etRa9275DischargePermit"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa9275DischargeDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa9275DischargeDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+            <View
+                android:id="@+id/anchorRa9003"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RA 9003"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RA 9003"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#212121"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/field_group_bg"
+                        android:padding="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="With MOA/Agreement for residuals\ndisposed to a SLF w/ ECC"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="6dp"/>
+
+                        <EditText
+                            android:id="@+id/etRa9003MoaAgreement"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edittext_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="6dp"/>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etRa9003MoaDateFrom"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:layout_marginEnd="6dp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+
+                            <EditText
+                                android:id="@+id/etRa9003MoaDateTo"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edittext_bg"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="8dp"
+                                android:textSize="12sp"
+                                android:drawableEnd="@drawable/ic_calendar"
+                                android:focusable="false"
+                                android:clickable="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <Button
+                android:id="@+id/btnSubmitCompliance"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:text="Submit"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/button_text_size"
+                android:textStyle="bold"
+                android:backgroundTint="#1565C0"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/greenBG">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="70dp"
+        android:background="@color/green"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back"
+            app:tint="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Purpose of Inspection"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Scroll View with ID for auto-scroll -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Purpose 1"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:layout_marginBottom="8dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <CheckBox
+                        android:id="@+id/cbVerifyAccuracy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Verify accuracy of information submitted by the establishment pertaining to new permit applications, renewals, or modifications."
+                        android:textSize="13sp"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="8dp"
+                        android:nextFocusDown="@+id/cbPMPINNew" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#DDDDDD"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="@dimen/space_xs">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="4dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="NEW"
+                                    android:gravity="center"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="RENEW"
+                                    android:gravity="center"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"/>
+                            </LinearLayout>
+
+                            <!-- ROW 1: PMPIN Application -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:paddingVertical="4dp">
+
+                                <TextView
+                                    android:id="@+id/txtPMPIN"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="PMPIN Application"
+                                    android:textSize="12sp"
+                                    android:textColor="#333"
+                                    android:maxLines="2"/>
+
+                                <CheckBox
+                                    android:id="@+id/cbPMPINNew"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:nextFocusDown="@+id/cbHWGIDNew" />
+
+                                <CheckBox
+                                    android:id="@+id/cbPMPINRenewal"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:nextFocusDown="@+id/cbHWGIDRenewal" />
+                            </LinearLayout>
+
+                            <!-- ROW 2: Hazardous Waste Generator ID Registration -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:paddingVertical="4dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Hazardous Waste Generator ID Registration"
+                                    android:textSize="12sp"
+                                    android:textColor="#333"
+                                    android:maxLines="2"/>
+
+                                <CheckBox
+                                    android:id="@+id/cbHWGIDNew"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/cbHWTRNew" />
+
+                                <CheckBox
+                                    android:id="@+id/cbHWGIDRenewal"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/cbHWTRRenewal" />
+                            </LinearLayout>
+
+                            <!-- ROW 3: Hazardous Waste Transporter Registration -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:paddingVertical="4dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Hazardous Waste Transporter Registration"
+                                    android:textSize="12sp"
+                                    android:textColor="#333"
+                                    android:maxLines="2"/>
+
+                                <CheckBox
+                                    android:id="@+id/cbHWTRNew"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/cbHWTSDNew" />
+
+                                <CheckBox
+                                    android:id="@+id/cbHWTRRenewal"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/cbHWTSDRenewal" />
+                            </LinearLayout>
+
+                            <!-- ROW 4: Hazardous Waste TSD Registration -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:paddingVertical="4dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Hazardous Waste TSD Registration"
+                                    android:textSize="12sp"
+                                    android:textColor="#333"
+                                    android:maxLines="2"/>
+
+                                <CheckBox
+                                    android:id="@+id/cbHWTSDNew"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/cbPOAPCINew" />
+
+                                <CheckBox
+                                    android:id="@+id/cbHWTSDRenewal"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/cbPOAPCIRenewal" />
+                            </LinearLayout>
+
+                            <!-- ROW 5: Permit to Operate Air Pollution Control Installation -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:paddingVertical="4dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Permit to Operate Air Pollution Control Installation"
+                                    android:textSize="12sp"
+                                    android:textColor="#333"
+                                    android:maxLines="3"/>
+
+                                <CheckBox
+                                    android:id="@+id/cbPOAPCINew"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/cbDPNew" />
+
+                                <CheckBox
+                                    android:id="@+id/cbPOAPCIRenewal"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/cbDPRenewal" />
+                            </LinearLayout>
+
+                            <!-- ROW 6: Discharge Permit -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:paddingVertical="4dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Discharge Permit"
+                                    android:textSize="12sp"
+                                    android:textColor="#333"/>
+
+                                <CheckBox
+                                    android:id="@+id/cbDPNew"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/txtOtherPermit" />
+
+                                <CheckBox
+                                    android:id="@+id/cbDPRenewal"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:nextFocusDown="@+id/txtOtherPermit" />
+                            </LinearLayout>
+
+                            <!-- ROW 7 Others -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:paddingVertical="4dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Others :"
+                                    android:textSize="12sp"
+                                    android:textColor="#333"
+                                    android:paddingBottom="2dp"/>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <EditText
+                                        android:id="@+id/txtOtherPermit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@null"
+                                        android:enabled="true"
+                                        android:textSize="13sp"
+                                        android:paddingBottom="2dp"
+                                        android:maxLines="1"
+                                        android:singleLine="true"
+                                        android:inputType="text"
+                                        android:imeOptions="actionNext" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#333333"/>
+
+                                </LinearLayout>
+
+                                <CheckBox
+                                    android:id="@+id/cbOthersPermitNew"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:paddingBottom="2dp"
+                                    android:nextFocusDown="@+id/cbDetermineCompliance" />
+
+                                <CheckBox
+                                    android:id="@+id/cbOthersPermitRenewal"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:paddingBottom="2dp"
+                                    android:nextFocusDown="@+id/cbDetermineCompliance" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#DDDDDD"
+                        android:layout_marginBottom="10dp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbDetermineCompliance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Determine compliance status with environmental regulations, permit conditions, and other requirements."
+                        android:textSize="13sp"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="8dp"
+                        android:nextFocusDown="@+id/cbInvestigate" />
+
+                    <CheckBox
+                        android:id="@+id/cbInvestigate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Investigate community complaints."
+                        android:textSize="13sp"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="8dp"
+                        android:nextFocusDown="@+id/cbSurvey" />
+
+                    <CheckBox
+                        android:id="@+id/cbSurvey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Survey"
+                        android:textSize="13sp"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="8dp"
+                        android:nextFocusDown="@+id/cbOthersCEMCRR" />
+
+                    <!-- OTHERS -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <CheckBox
+                            android:id="@+id/cbOthersCEMCRR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Others :"
+                            android:textSize="13sp"
+                            android:textColor="#333333"
+                            android:nextFocusDown="@+id/txtOtherSpecify" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="6dp">
+
+                            <EditText
+                                android:id="@+id/txtOtherSpecify"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:enabled="true"
+                                android:textSize="13sp"
+                                android:paddingBottom="2dp"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:inputType="text"
+                                android:imeOptions="actionNext" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#333333"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Name of Contact person -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxStrokeColor="@color/green"
+                app:hintTextColor="@color/green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etContactName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name of Contact person"
+                    android:textSize="14sp"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:background="@null"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Position / Designation -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxStrokeColor="@color/green"
+                app:hintTextColor="@color/green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPosition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Position / Designation"
+                    android:textSize="14sp"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:background="@null"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/buttons_margin_top"
+                android:layout_marginBottom="@dimen/buttons_margin_bottom">
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/horizontal_spacing"
+                    android:text="Save"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    android:textStyle="bold"
+                    android:backgroundTint="#2222CC"
+                    style="@style/Widget.MaterialComponents.Button" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

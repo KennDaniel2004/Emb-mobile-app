@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EMBR6</string>
+
+
+    <string-array name="monitoring_types">
+        <item>Onsite Monitoring</item>
+        <item>Table Monitoring</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/greenBG">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="56dp"
+        android:background="@color/green"
+        android:paddingStart="4dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back"
+            app:tint="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Monitoring Detail"
+            android:textColor="@android:color/black"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ScrollView with ID for auto-scroll -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:paddingBottom="50dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/logo"
+                        android:scaleType="fitCenter"
+                        android:layout_marginEnd="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:text="Republic of the Philippines" android:textSize="11sp" android:textColor="#333"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:text="Department of Environment and Natural Resources" android:textSize="9sp" android:textColor="#333"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:text="ENVIRONMENTAL MANAGEMENT BUREAU" android:textSize="11sp"
+                            android:textStyle="bold" android:textColor="#0D47A1"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:text="Western Visayas" android:textSize="11sp" android:textStyle="bold" android:textColor="#333"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="INTEGRATED COMPLIANCE INSPECTION REPORT"
+                        android:gravity="center" android:textSize="13sp" android:textStyle="bold"
+                        android:textColor="#111" android:layout_marginBottom="8dp"/>
+
+                    <TextView android:id="@+id/tvDetailEmbId"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="#333" android:gravity="center"
+                        android:layout_marginBottom="2dp"/>
+
+                    <TextView android:id="@+id/tvDetailReportControl"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="#333" android:gravity="center"
+                        android:layout_marginBottom="2dp"/>
+
+                    <TextView android:id="@+id/tvDetailTypeMonitoring"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="#333" android:gravity="center"
+                        android:layout_marginBottom="2dp"/>
+
+                    <TextView android:id="@+id/tvDetailDate"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="#333" android:gravity="center"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 1. GENERAL INFORMATION -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="1. GENERAL INFORMATION" android:textSize="13sp" android:textStyle="bold"
+                android:textColor="#111" android:layout_marginBottom="6dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView android:id="@+id/tvDetailLaws"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="#333" android:layout_marginBottom="4dp"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="4dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Name of Establishment:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailEstablishment"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="12sp" android:textStyle="bold" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="4dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Proponent:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailProponent"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="12sp" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="4dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Project Location:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailLocation"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="12sp" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <TextView android:id="@+id/tvDetailGeo"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="#333" android:layout_marginBottom="4dp"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="4dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Nature of Business:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailNature"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="12sp" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="4dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Year Established:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailYearEstab"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:textSize="12sp" android:textColor="#111"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="PSIC Code:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailPsic"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:textSize="12sp" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="4dp">
+                        <TextView android:id="@+id/tvDetailOperating"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textSize="12sp" android:textColor="#333"/>
+                    </LinearLayout>
+
+                    <TextView android:id="@+id/tvDetailEmployees"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="#333" android:layout_marginBottom="4dp"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:background="#F0F0F0"
+                        android:padding="4dp" android:layout_marginTop="4dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Product Lines"
+                            android:textSize="11sp" android:textStyle="bold" android:gravity="center"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Production Rate (ECC)"
+                            android:textSize="11sp" android:textStyle="bold" android:gravity="center"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Actual Rate"
+                            android:textSize="11sp" android:textStyle="bold" android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:padding="4dp">
+                        <TextView android:id="@+id/tvDetailProductLines"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:textSize="11sp" android:gravity="center" android:textColor="#111"/>
+                        <TextView android:id="@+id/tvDetailProductionRate"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:textSize="11sp" android:gravity="center" android:textColor="#111"/>
+                        <TextView android:id="@+id/tvDetailActualRate"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:textSize="11sp" android:gravity="center" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="#EEEEEE" android:layout_marginTop="6dp" android:layout_marginBottom="6dp"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="2dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Managing Head:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailManagingHead"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="12sp" android:textStyle="bold" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="2dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="PCO Name:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailPco"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="12sp" android:textStyle="bold" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="2dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="PCO Accreditation:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailPcoAccred"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="11sp" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="2dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Effectivity:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailEffectivity"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="11sp" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Phone/Email:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailContact"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="11sp" android:textColor="#111"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 2. PURPOSE OF INSPECTION -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="2. PURPOSE OF INSPECTION" android:textSize="13sp" android:textStyle="bold"
+                android:textColor="#111" android:layout_marginBottom="6dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView android:id="@+id/tvDetailPurpose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#333"
+                        android:lineSpacingExtra="4dp"/>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="#EEEEEE" android:layout_marginTop="8dp" android:layout_marginBottom="6dp"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Contact Person:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailContactPerson"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="12sp" android:textStyle="bold" android:textColor="#111"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginTop="2dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Position:"
+                            android:textSize="11sp" android:textColor="#555"/>
+                        <TextView android:id="@+id/tvDetailContactPosition"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:textSize="12sp" android:textColor="#111"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3. COMPLIANCE STATUS -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="3. COMPLIANCE STATUS" android:textSize="13sp" android:textStyle="bold"
+                android:textColor="#111" android:layout_marginBottom="6dp"/>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="3.1 DENR Permits/Licenses/Clearances"
+                android:textSize="12sp" android:textColor="#333" android:layout_marginBottom="4dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:background="#F0F0F0" android:padding="5dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Env. Law"
+                            android:textSize="11sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="2" android:text="Permits"
+                            android:textSize="11sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Date of Issue"
+                            android:textSize="11sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Expiry Date"
+                            android:textSize="11sp" android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <TextView android:id="@+id/tvDetailCompliance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:textColor="#333"
+                        android:padding="6dp"
+                        android:lineSpacingExtra="4dp"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3.3 Summary of Findings and Observations -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="3.3 Summary of Findings and Observations"
+                android:textSize="13sp" android:textStyle="bold"
+                android:textColor="#111" android:layout_marginBottom="8dp"/>
+
+            <include layout="@layout/item_findings_section"
+                android:id="@+id/section331"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+
+            <include layout="@layout/item_findings_section"
+                android:id="@+id/section332"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+
+            <include layout="@layout/item_findings_section"
+                android:id="@+id/section333"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+
+            <include layout="@layout/item_findings_section"
+                android:id="@+id/section334"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+
+            <include layout="@layout/item_findings_section"
+                android:id="@+id/section335"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+
+            <include layout="@layout/item_findings_section_no_image"
+                android:id="@+id/section336"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+
+            <include layout="@layout/item_findings_section_no_image"
+                android:id="@+id/section337"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- 4. RECOMMENDATIONS -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="4. RECOMMENDATIONS"
+                android:textSize="13sp" android:textStyle="bold"
+                android:textColor="#111" android:layout_marginBottom="6dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <CheckBox android:id="@+id/cbRecConfirmatory"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For confirmatory sampling" android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecRegularMonitoring"/>
+
+                    <CheckBox android:id="@+id/cbRecRegularMonitoring"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For regular monitoring" android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecIssuanceTempRenewal"/>
+
+                    <CheckBox android:id="@+id/cbRecIssuanceTempRenewal"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For issuance of Temporary/ Renewal of Permit to Operate (POA) and/or Renewal of Discharge Permit (DP)"
+                        android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecAccreditationPco"/>
+
+                    <CheckBox android:id="@+id/cbRecAccreditationPco"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For accreditation of Pollution Control Officer (PCO)/ Seminar requirement of Managing Head"
+                        android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecSubmissionSmrCmr"/>
+
+                    <CheckBox android:id="@+id/cbRecSubmissionSmrCmr"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For submission of Self-Monitoring Report (SMR) / Compliance Monitoring Report (CMR)"
+                        android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecIssuanceNomTc"/>
+
+                    <CheckBox android:id="@+id/cbRecIssuanceNomTc"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For issuance of Notice of Meeting (NOM)/ Technical Conference (TC)"
+                        android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecIssuanceNov"/>
+
+                    <CheckBox android:id="@+id/cbRecIssuanceNov"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For issuance of Notice of Violation (NOV)" android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecSuspensionEcc"/>
+
+                    <CheckBox android:id="@+id/cbRecSuspensionEcc"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For issuance of suspension of ECC/ 5-day CDO" android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecEndorsementPab"/>
+
+                    <CheckBox android:id="@+id/cbRecEndorsementPab"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="For endorsement to Pollution Adjudication Board (PAB)"
+                        android:textSize="12sp" android:textColor="#333"
+                        android:nextFocusDown="@+id/cbRecOther"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center_vertical"
+                        android:layout_marginTop="4dp">
+                        <CheckBox android:id="@+id/cbRecOther"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Other recommendations:" android:textSize="12sp" android:textColor="#333"
+                            android:nextFocusDown="@+id/etRecOther"/>
+                        <EditText android:id="@+id/etRecOther"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:background="@null"
+                            android:textSize="12sp" android:layout_marginStart="6dp"
+                            android:paddingBottom="2dp"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:inputType="text"
+                            android:imeOptions="actionNext"/>
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="#AAAAAA"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center_vertical"
+                        android:layout_marginTop="6dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="•" android:textSize="13sp" android:textColor="#111"
+                            android:layout_marginEnd="4dp"/>
+                        <EditText android:id="@+id/etRegularMonitoringDesc"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="For regular monitoring to ensure compliance with environmental laws"
+                            android:background="@null" android:textSize="12sp"
+                            android:textStyle="bold" android:textColor="#111"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:inputType="text"
+                            android:imeOptions="actionNext"/>
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="#AAAAAA" android:layout_marginTop="2dp"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- SUBMITTED BY SECTION -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Submitted by:" android:textSize="12sp" android:textColor="#333"
+                        android:layout_marginBottom="6dp"/>
+
+                    <EditText android:id="@+id/etSubmittedBy"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_bg" android:padding="10dp"
+                        android:textSize="13sp" android:textStyle="bold"
+                        android:hint="Name / EMS designation"
+                        android:layout_marginBottom="8dp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="textPersonName"
+                        android:imeOptions="actionNext"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="10dp">
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical" android:layout_marginEnd="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="Date Submitted:" android:textSize="11sp" android:textColor="#555"/>
+                            <EditText android:id="@+id/etDateSubmitted"
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:background="@drawable/edittext_bg" android:padding="8dp"
+                                android:textSize="12sp" android:hint="yyyy-mm-dd"
+                                android:focusable="false" android:clickable="true"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:inputType="date"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="Date Travel Concluded:" android:textSize="11sp" android:textColor="#555"/>
+                            <EditText android:id="@+id/etDateTravelConcluded"
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:background="@drawable/edittext_bg" android:padding="8dp"
+                                android:textSize="12sp" android:hint="yyyy-mm-dd"
+                                android:focusable="false" android:clickable="true"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:inputType="date"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="#EEEEEE" android:layout_marginBottom="10dp"/>
+
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Recommending Approval/s:"
+                        android:textSize="12sp" android:textColor="#333" android:layout_marginBottom="6dp"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="10dp">
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical" android:layout_marginEnd="8dp">
+                            <EditText android:id="@+id/etRecommending1"
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:background="@drawable/edittext_bg" android:padding="8dp"
+                                android:textSize="12sp" android:hint="Name"
+                                android:layout_marginBottom="4dp"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:inputType="textPersonName"
+                                android:imeOptions="actionNext"/>
+                            <EditText android:id="@+id/etRecommending1Position"
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:background="@drawable/edittext_bg" android:padding="8dp"
+                                android:textSize="12sp" android:hint="Position / Unit"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:inputType="textCapWords"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <EditText android:id="@+id/etRecommending2"
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:background="@drawable/edittext_bg" android:padding="8dp"
+                                android:textSize="12sp" android:hint="Name"
+                                android:layout_marginBottom="4dp"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:inputType="textPersonName"
+                                android:imeOptions="actionNext"/>
+                            <EditText android:id="@+id/etRecommending2Position"
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:background="@drawable/edittext_bg" android:padding="8dp"
+                                android:textSize="12sp" android:hint="Position / Unit"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:inputType="textCapWords"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="#EEEEEE" android:layout_marginBottom="10dp"/>
+
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Approved by:"
+                        android:textSize="12sp" android:textColor="#333" android:layout_marginBottom="6dp"/>
+
+                    <EditText android:id="@+id/etApprovedBy"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_bg" android:padding="10dp"
+                        android:textSize="13sp" android:textStyle="bold"
+                        android:hint="Name" android:layout_marginBottom="6dp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="textPersonName"
+                        android:imeOptions="actionNext"/>
+
+                    <EditText android:id="@+id/etApprovedByPosition"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_bg" android:padding="10dp"
+                        android:textSize="12sp" android:hint="Position / Unit"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="textCapWords"
+                        android:imeOptions="actionDone"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btnSaveComplete"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="20dp"
+                android:text="Save"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:backgroundTint="#1565C0"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

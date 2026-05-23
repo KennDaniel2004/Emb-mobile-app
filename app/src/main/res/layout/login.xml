@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#EDEDED"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
+        android:paddingBottom="50dp">
+
+        <ImageView
+            android:id="@+id/loginImage"
+            android:layout_width="296dp"
+            android:layout_height="295dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/login" />
+
+        <TextView
+            android:id="@+id/loginText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login your account here..."
+            android:textColor="#020202"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Username Field -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_auth"
+                android:hint="Enter your username"
+                android:padding="15dp"
+                android:inputType="textEmailAddress"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+        <!-- Password Field -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_auth"
+                    android:hint="Enter your password"
+                    android:inputType="textPassword"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="50dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp" />
+
+                <ImageButton
+                    android:id="@+id/btnTogglePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Toggle password visibility"
+                    android:padding="6dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_eye_off"
+                    app:tint="@color/green0.2" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/Register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:letterSpacing="0.2"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="225dp"
+            android:layout_height="55dp"
+            android:background="@drawable/button_bg"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</ScrollView>

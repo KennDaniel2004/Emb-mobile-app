@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/green" />
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/green"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageButton
+                        android:id="@+id/btnArchiveBack"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_arrow_back"
+                        android:contentDescription="Back" />
+
+                    <TextView
+                        android:id="@+id/tvArchiveTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Archive"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white" />
+
+                    <!-- Selection Action Buttons -->
+                    <LinearLayout
+                        android:id="@+id/layoutSelectionActions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tvSelectAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select all"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:padding="12dp"
+                            android:background="?attr/selectableItemBackgroundBorderless" />
+
+                        <TextView
+                            android:id="@+id/tvUnArchive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Unarchive"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:padding="12dp"
+                            android:background="?attr/selectableItemBackgroundBorderless" />
+
+                        <ImageButton
+                            android:id="@+id/btnArchiveDelete"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_trash"
+                            android:contentDescription="Delete" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <!-- Animated Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:indeterminate="true"
+                android:visibility="gone"
+                android:progressTint="@color/colorAccent" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Stats Bar - Shows archive statistics -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        android:visibility="gone"
+        android:id="@+id/statsBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvTotalArchived"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Archived"
+                    android:textSize="12sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:background="#E0E0E0" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvRecentlyArchived"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF9800" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recently Archived"
+                    android:textSize="12sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Search Bar -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/search"
+                app:tint="#999999" />
+
+            <EditText
+                android:id="@+id/etSearchArchive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Search archived records..."
+                android:inputType="text"
+                android:padding="12dp"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/btnClearSearch"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="4dp"
+                android:src="@drawable/close"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerArchive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+
+        <!-- Enhanced Empty State Layout -->
+        <LinearLayout
+            android:id="@+id/emptyStateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:padding="32dp">
+
+            <ImageView
+                android:id="@+id/ivEmptyIcon"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@drawable/archive4"
+                android:alpha="0.5" />
+
+            <TextView
+                android:id="@+id/tvEmptyMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Archive is Empty"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/tvEmptySubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Records you archive will appear here"
+                android:textSize="14sp"
+                android:textColor="#999999"
+                android:gravity="center" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBatchAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_select_multiple"
+        app:backgroundTint="@color/colorPrimary"
+        app:tint="@android:color/white"
+        android:visibility="gone" />
+
+</LinearLayout>

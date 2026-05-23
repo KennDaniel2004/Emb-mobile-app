@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- BASE THEME -->
+    <style name="Base.Theme.EMBR6MonitoringApp"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Primary brand color -->
+        <item name="colorPrimary">#63E157</item>
+
+        <!-- Used for status bar in Material3 -->
+        <item name="colorPrimaryContainer">#63E157</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">#63E157</item>
+
+        <!-- White icons in status bar -->
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Required for status bar color to apply -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+    </style>
+
+    <!-- APP THEME -->
+    <style name="Theme.EMBR6MonitoringApp"
+        parent="Base.Theme.EMBR6MonitoringApp" />
+
+</resources>

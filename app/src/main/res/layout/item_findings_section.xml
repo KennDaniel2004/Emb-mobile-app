@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <TextView
+            android:id="@+id/tvSectionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3.3.x Section Title"
+            android:textSize="13sp"
+            android:textStyle="bold|italic"
+            android:textColor="#212121"
+            android:layout_marginBottom="8dp"/>
+
+
+        <RadioGroup
+            android:id="@+id/rgStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <RadioButton
+                android:id="@+id/rbCompliant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Compliant"
+                android:textSize="12sp"
+                android:layout_marginEnd="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbNonCompliant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Non-compliant"
+                android:textSize="12sp"
+                android:layout_marginEnd="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbNotApplicable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not applicable"
+                android:textSize="12sp"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etFindings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
+            android:gravity="top"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:textSize="12sp"
+            android:hint="Based on the above findings and observations..."
+            android:inputType="textMultiLine"
+            android:layout_marginBottom="10dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:id="@+id/frameImage1"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:background="#E8E8E8"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/ivImage1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_gallery"/>
+
+
+                <ImageView
+                    android:id="@+id/ivUploadIcon1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_input_add"
+                    android:alpha="0.6"/>
+
+                <EditText
+                    android:id="@+id/etCaption1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="#CC000000"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:padding="4dp"
+                    android:hint="Caption..."
+                    android:textColorHint="#AAAAAA"
+                    android:singleLine="true"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameImage2"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:background="#E8E8E8"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/ivImage2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_gallery"/>
+
+                <ImageView
+                    android:id="@+id/ivUploadIcon2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_input_add"
+                    android:alpha="0.6"/>
+
+                <EditText
+                    android:id="@+id/etCaption2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="#CC000000"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:padding="4dp"
+                    android:hint="Caption..."
+                    android:textColorHint="#AAAAAA"
+                    android:singleLine="true"/>
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

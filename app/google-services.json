@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "903842472512",
+    "project_id": "embr6database",
+    "storage_bucket": "embr6database.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903842472512:android:d98b0b4ff8fc64a42335a5",
+        "android_client_info": {
+          "package_name": "com.example.embr6monitoringapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3bz4aaJeg1hefMtr1GZU3i7Fl32Z2swE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

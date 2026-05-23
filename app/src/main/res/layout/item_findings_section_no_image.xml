@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Used by: 3.3.6 Solid Waste Management, 3.3.7 Commitments -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <TextView
+            android:id="@+id/tvSectionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3.3.x Section Title"
+            android:textSize="13sp"
+            android:textStyle="bold|italic"
+            android:textColor="#212121"
+            android:layout_marginBottom="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <RadioButton
+                android:id="@+id/rbCompliant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Compliant"
+                android:textSize="12sp"
+                android:layout_marginEnd="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbNonCompliant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Non-compliant"
+                android:textSize="12sp"
+                android:layout_marginEnd="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbNotApplicable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not applicable"
+                android:textSize="12sp"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etFindings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
+            android:gravity="top"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:textSize="12sp"
+            android:hint="Findings and observations..."
+            android:inputType="textMultiLine"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

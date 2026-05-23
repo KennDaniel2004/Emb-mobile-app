@@ -1,0 +1,1462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/greenBG">
+
+    <!-- Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/green"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/titleContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/headerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="General Information "
+                android:textColor="@color/black"
+                android:textSize="21dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Scroll View with ID for auto-scroll -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/scroll_padding"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Integrated Compliance Inspection Report"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/title_margin_bottom"
+                android:textColor="@color/black" />
+
+            <!-- Row 1: EMB ID No. & Report Control -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/row_margin_small">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/horizontal_spacing"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmbIdNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="EMB ID No."
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etReportControl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Report Control"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Row 2: Type of Monitoring & Date of Inspection -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/row_margin_medium">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/horizontal_spacing"
+                    app:errorEnabled="true"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/etTypeOfMonitoring"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Type of Monitoring"
+                        android:textSize="@dimen/input_text_size"
+                        android:inputType="none"
+                        android:focusable="true"
+                        android:clickable="true"
+                        android:maxLines="1"
+                        android:imeOptions="actionNext"
+                        android:dropDownHeight="wrap_content"
+                        android:completionThreshold="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDateOfInspection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Date of Inspection"
+                        android:inputType="date"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Environmental Laws Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Applicable Environmental Laws: (Pls. check box)"
+                android:textSize="@dimen/section_title_size"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/section_title_margin"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_margin_bottom"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="1dp"
+                app:strokeColor="#CCCCCC"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:contentPadding="@dimen/card_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/cbPd1586"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PD-1586"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:layout_marginBottom="@dimen/checkbox_margin"
+                        android:nextFocusDown="@+id/cbRa9003" />
+
+                    <CheckBox
+                        android:id="@+id/cbRa9003"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RA-9003"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:layout_marginBottom="@dimen/checkbox_margin"
+                        android:nextFocusDown="@+id/cbRa9275" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/checkbox_margin">
+
+                        <CheckBox
+                            android:id="@+id/cbRa9275"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="RA-9275"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/horizontal_spacing"
+                            android:nextFocusDown="@+id/cbRa9275Survey" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="( Survey"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/tight_spacing" />
+
+                        <CheckBox
+                            android:id="@+id/cbRa9275Survey"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/horizontal_spacing"
+                            android:nextFocusDown="@+id/cbRa9275Routine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Routine"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/tight_spacing" />
+
+                        <CheckBox
+                            android:id="@+id/cbRa9275Routine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:nextFocusDown="@+id/cbRa6969" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="57dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/tight_spacing"
+                            android:layout_weight="1"
+                            android:text=")"
+                            android:textSize="@dimen/checkbox_text_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/checkbox_margin">
+
+                        <CheckBox
+                            android:id="@+id/cbRa6969"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="RA-6969"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/horizontal_spacing"
+                            android:nextFocusDown="@+id/cbRa6969Survey" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="( Survey"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/tight_spacing" />
+
+                        <CheckBox
+                            android:id="@+id/cbRa6969Survey"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/horizontal_spacing"
+                            android:nextFocusDown="@+id/cbRa6969Routine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Routine"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/tight_spacing" />
+
+                        <CheckBox
+                            android:id="@+id/cbRa6969Routine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:nextFocusDown="@+id/cbRa8749" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/tight_spacing"
+                            android:layout_weight="1"
+                            android:text=")"
+                            android:textSize="@dimen/checkbox_text_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/checkbox_margin_before_mc">
+
+                        <CheckBox
+                            android:id="@+id/cbRa8749"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="RA-8749"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/horizontal_spacing"
+                            android:nextFocusDown="@+id/cbRa8749Survey" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="( Survey"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/tight_spacing" />
+
+                        <CheckBox
+                            android:id="@+id/cbRa8749Survey"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/horizontal_spacing"
+                            android:nextFocusDown="@+id/cbRa8749Routine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Routine"
+                            android:textSize="@dimen/checkbox_text_size"
+                            android:layout_marginEnd="@dimen/tight_spacing" />
+
+                        <CheckBox
+                            android:id="@+id/cbRa8749Routine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:nextFocusDown="@+id/rgMcCovered" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/tight_spacing"
+                            android:layout_weight="1"
+                            android:text=")"
+                            android:textSize="@dimen/checkbox_text_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Covered by MC 2022-003?"
+                            android:textSize="@dimen/mc_label_size"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="@dimen/horizontal_spacing" />
+
+                        <RadioGroup
+                            android:id="@+id/rgMcCovered"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:nextFocusDown="@+id/etNameOfEstablishment">
+
+                            <RadioButton
+                                android:id="@+id/radioYes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="YES"
+                                android:textSize="@dimen/radio_text_size"
+                                android:layout_marginEnd="@dimen/horizontal_spacing" />
+
+                            <RadioButton
+                                android:id="@+id/radioNo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="NO"
+                                android:textSize="@dimen/radio_text_size" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="@dimen/divider_margin" />
+
+            <!-- Information 1 Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/input_margin_large">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Information 1"
+                    android:textSize="@dimen/section_title_size"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="@dimen/section_title_margin" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/input_margin"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNameOfEstablishment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name of Establishment *"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/input_margin"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etProponent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Proponent *"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/input_margin"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMailingAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Mailing Address *"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Geo-Coordinates -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/input_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Geo-Coordinates:"
+                        android:textSize="@dimen/label_text_size"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="@dimen/horizontal_spacing" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/horizontal_spacing"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etGeoN"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="N"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:textSize="@dimen/input_text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etGeoE"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="E"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:textSize="@dimen/input_text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/input_margin"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etProjectLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Project Location *"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/input_margin"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNatureOfBusiness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nature of Business *"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Year Established & PSIC Code -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/input_margin">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="@dimen/horizontal_spacing">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Year Established"
+                            android:textSize="@dimen/label_text_size"
+                            android:layout_marginBottom="@dimen/label_margin" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etYearEstablished"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext"
+                                android:textSize="@dimen/input_text_size" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PSIC Code"
+                            android:textSize="@dimen/label_text_size"
+                            android:layout_marginBottom="@dimen/label_margin" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPsicCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext"
+                                android:textSize="@dimen/input_text_size" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Operating hours/day | Operating days/week | Operating days/year -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/input_margin_large">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="@dimen/horizontal_spacing">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Operating hours/day"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="@dimen/label_margin"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etOperatingHoursPerDay"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="@dimen/horizontal_spacing">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Operating days/week"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="@dimen/label_margin"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etOperatingDaysPerWeek"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Operating days/year"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="@dimen/label_margin"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etOperatingDaysPerYear"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Number of Employee Section -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Number of Employee"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/input_margin_large">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="@dimen/horizontal_spacing">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Male"
+                            android:layout_marginBottom="@dimen/label_margin"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etMaleEmployees"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="@dimen/horizontal_spacing">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Female"
+                            android:layout_marginBottom="@dimen/label_margin"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etFemaleEmployees"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Employee"
+                            android:layout_marginBottom="@dimen/label_margin"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etTotalEmployees"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext"
+                                android:enabled="false" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="@dimen/divider_margin" />
+
+            <!-- Information 2 Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/input_margin_large">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Information 2"
+                    android:textSize="@dimen/section_title_size"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="34dp" />
+
+                <!-- Product Lines -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/input_margin">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="Product Lines :"
+                        android:textSize="@dimen/label_text_size" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etProductLines"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:textSize="@dimen/input_text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Production Rate (Multi-line - keep expandable) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="top"
+                    android:layout_marginBottom="@dimen/input_margin">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="Production Rate:"
+                        android:textSize="@dimen/label_text_size"
+                        android:layout_marginTop="12dp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etProductionRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minLines="1"
+                            android:maxLines="10"
+                            android:gravity="top|start"
+                            android:inputType="textMultiLine"
+                            android:textSize="@dimen/input_text_size"
+                            android:scrollbars="vertical" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Actual Production Rate (Multi-line - keep expandable) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="top"
+                    android:layout_marginBottom="@dimen/input_margin_large">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="Actual Production Rate:"
+                        android:textSize="@dimen/label_text_size"
+                        android:layout_marginTop="12dp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etActualProductionRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minLines="1"
+                            android:maxLines="10"
+                            android:gravity="top|start"
+                            android:inputType="textMultiLine"
+                            android:textSize="@dimen/input_text_size"
+                            android:scrollbars="vertical" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Year Covered & Vol -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/input_margin_large">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="@dimen/horizontal_spacing">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Year Covered"
+                            android:textSize="@dimen/label_text_size"
+                            android:layout_marginBottom="@dimen/label_margin" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etYearCovered"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext"
+                                android:textSize="@dimen/input_text_size" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vol (cu. m)"
+                            android:textSize="@dimen/label_text_size"
+                            android:layout_marginBottom="@dimen/label_margin" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etVolCuM"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext"
+                                android:textSize="@dimen/input_text_size" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:backgroundTint="#2222CC"
+                    android:layout_marginBottom="@dimen/input_margin_large"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    style="@style/Widget.MaterialComponents.Button" />
+
+                <!-- Table Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/black"
+                    android:padding="1dp">
+
+                    <!-- Header Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Product Lines"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:background="@android:color/white" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Production Rate as Declared in the ECC (Unit/day)"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:background="@android:color/white" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Actual Production Rate (Unit/day)"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:background="@android:color/white" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:minHeight="120dp">
+
+                        <TextView
+                            android:id="@+id/tvTableProductLines"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:padding="8dp"
+                            android:background="@android:color/white" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTableProductionRate"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:padding="8dp"
+                            android:background="@android:color/white" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/black" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:background="@android:color/white">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/black" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Year Covered"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:padding="6dp"
+                                    android:background="@android:color/white" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/black" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Vol (cu. m)"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:padding="6dp"
+                                    android:background="@android:color/white" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/black" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:minHeight="60dp">
+
+                                <TextView
+                                    android:id="@+id/tvSubYearCovered"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text=""
+                                    android:textSize="10sp"
+                                    android:padding="6dp"
+                                    android:background="@android:color/white" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/black" />
+
+                                <TextView
+                                    android:id="@+id/tvSubVolCuM"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text=""
+                                    android:textSize="10sp"
+                                    android:padding="6dp"
+                                    android:background="@android:color/white" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="@dimen/divider_margin" />
+
+            <!-- Information 3 Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/input_margin_large">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Information 3"
+                    android:textSize="@dimen/section_title_size"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="30dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/input_margin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNameOfManagingHead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name of Managing Head*"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/input_margin_large"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNameOfPco"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name of PCO*"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/input_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- PCO Accreditation No. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/input_margin">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="PCO Accreditation No. :"
+                        android:textSize="@dimen/label_text_size"
+                        android:gravity="end"
+                        android:layout_marginEnd="@dimen/horizontal_spacing" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPcoAccreditationNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:textSize="@dimen/input_text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Date of Effectivity -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/input_margin">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Date of Effectivity:"
+                        android:textSize="@dimen/label_text_size"
+                        android:gravity="end"
+                        android:layout_marginEnd="@dimen/horizontal_spacing" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDateOfEffectivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:textSize="@dimen/input_text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Phone / Fax No. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/input_margin">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Phone / Fax No. :"
+                        android:textSize="@dimen/label_text_size"
+                        android:gravity="end"
+                        android:layout_marginEnd="@dimen/horizontal_spacing" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPhoneFaxNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:textSize="@dimen/input_text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Email Address -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/input_margin">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Email Address:"
+                        android:textSize="@dimen/label_text_size"
+                        android:gravity="end"
+                        android:layout_marginEnd="@dimen/horizontal_spacing" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etEmailAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
+                            android:textSize="@dimen/input_text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/buttons_margin_top"
+                android:layout_marginBottom="@dimen/buttons_margin_bottom">
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/horizontal_spacing"
+                    android:text="Save"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    android:textStyle="bold"
+                    android:backgroundTint="#2222CC"
+                    style="@style/Widget.MaterialComponents.Button" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

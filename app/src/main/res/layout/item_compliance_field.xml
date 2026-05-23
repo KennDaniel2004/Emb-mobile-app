@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/bg_field_container"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/txtFieldLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Field Label"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/edtFieldValue"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Enter value"
+        android:background="@drawable/edittext_bg"
+        android:padding="10dp"
+        android:textSize="14sp"/>
+
+
+    <LinearLayout
+        android:id="@+id/layoutDateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/edtDateIssue"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:hint="Date Issued"
+            android:focusable="false"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"/>
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="match_parent"/>
+
+        <EditText
+            android:id="@+id/edtExpiryDate"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:hint="Expiry Date"
+            android:focusable="false"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

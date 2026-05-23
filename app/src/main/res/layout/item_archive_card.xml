@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Selection Checkbox -->
+        <CheckBox
+            android:id="@+id/cbArchiveSelect"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            android:buttonTint="#1976D2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Establishment Name -->
+        <TextView
+            android:id="@+id/tvArchiveName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#111111"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@+id/cbArchiveSelect"
+            app:layout_constraintEnd_toStartOf="@+id/ivMenu"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Three Dots Menu -->
+        <ImageView
+            android:id="@+id/ivMenu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_more_vert"
+            android:padding="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- EMB ID Badge (Simplified - using TextView instead of Chip) -->
+        <TextView
+            android:id="@+id/tvEmbIdBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="EMB ID"
+            android:textSize="11sp"
+            android:textColor="#1976D2"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/ic_badge"
+            app:layout_constraintStart_toStartOf="@+id/tvArchiveName"
+            app:layout_constraintTop_toBottomOf="@+id/tvArchiveName" />
+
+        <!-- EMB ID Value -->
+        <TextView
+            android:id="@+id/tvEmbIdValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text=""
+            android:textSize="11sp"
+            android:textColor="#666666"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintStart_toEndOf="@+id/tvEmbIdBadge"
+            app:layout_constraintTop_toTopOf="@+id/tvEmbIdBadge"
+            app:layout_constraintBottom_toBottomOf="@+id/tvEmbIdBadge" />
+
+        <!-- Date -->
+        <LinearLayout
+            android:id="@+id/layoutDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="@+id/tvArchiveName"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmbIdBadge">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_calendar"
+                app:tint="#999999" />
+
+            <TextView
+                android:id="@+id/tvArchiveDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="12sp"
+                android:textColor="#666666" />
+
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#E0E0E0"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDate" />
+
+        <!-- Footer with Archive Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/divider">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_archive"
+                app:tint="#FF9800" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="Archived"
+                android:textSize="11sp"
+                android:textColor="#FF9800" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

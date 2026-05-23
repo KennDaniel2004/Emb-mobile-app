@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- dialog_export.xml
+     Shown when the user taps the Export / Share button on MonitoringDetailController.
+     Place in res/layout/dialog_export.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Export Report As"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginBottom="16dp" />
+
+
+    <Button
+        android:id="@+id/btnExportAll"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Export All (PDF + Word + Excel)"
+        android:backgroundTint="#1a6b2d"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        android:layout_marginBottom="10dp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Export individual format:"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:layout_marginBottom="8dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btnExportPdf"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:text="PDF"
+            android:backgroundTint="#D32F2F"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnExportWord"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:text="Word"
+            android:backgroundTint="#1565C0"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/exportProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvExportStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:textColor="#444444"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Files are saved to your device storage.\nTap the notification bell to view all exports."
+        android:textSize="10sp"
+        android:textColor="#888888"
+        android:gravity="center"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
