@@ -78,13 +78,7 @@ public class SyncManager {
         }).start();
     }
 
-    // ══════════════════════════════════════════════════════════
-    //  FIXED: now syncs ALL fields from the Register table
-    //  Previously only pushed UserID, Username, Password —
-    //  missing First_Name, Last_Name, Middle_Name, Position,
-    //  Employee_Id which are required for "Completed" detection
-    //  in the web app.
-    // ══════════════════════════════════════════════════════════
+
     private void syncRegisteredUsers() {
         SQLiteDatabase db = dbConnection.getReadableDatabase();
         Cursor c = db.query("Register", null, "is_synced = 0", null, null, null, null);
@@ -108,27 +102,19 @@ public class SyncManager {
 
                 Map<String, Object> data = new HashMap<>();
 
-                // Both field names kept — web app uses UserID,
-                // mobile app uses Employee_Id
                 data.put("UserID",      employeeId);
                 data.put("Employee_Id", employeeId);
 
-                // ── THESE WERE MISSING — now included ──────────
                 data.put("First_Name",  firstName  != null ? firstName  : "");
                 data.put("Last_Name",   lastName   != null ? lastName   : "");
                 data.put("Middle_Name", middleName != null ? middleName : "");
                 data.put("Position",    position   != null ? position   : "");
-                // ───────────────────────────────────────────────
 
                 data.put("Username",    username   != null ? username   : "");
                 data.put("Password",    password   != null ? password   : "");
 
-                // Marks the doc as completed so the web app moves
-                // it from Pending tab → Completed tab automatically
                 data.put("status", "completed");
 
-                // SetOptions.merge() preserves the registeredAt
-                // timestamp the admin set when pre-registering the ID
                 final int fId = rowId;
                 firestore.collection(COL_REGISTERED_USER)
                         .document(employeeId)
