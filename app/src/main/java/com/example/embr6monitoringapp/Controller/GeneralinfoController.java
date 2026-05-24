@@ -1,5 +1,6 @@
 package com.example.embr6monitoringapp.Controller;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +28,10 @@ import com.example.embr6monitoringapp.Service.GeneralInfoService;
 import com.example.embr6monitoringapp.Service.GeneralInfoServiceImpl;
 import com.example.embr6monitoringapp.Service.MonitoringProgressService;
 import com.example.embr6monitoringapp.Service.MonitoringProgressServiceImpl;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class GeneralinfoController extends AppCompatActivity {
 
@@ -55,16 +59,19 @@ public class GeneralinfoController extends AppCompatActivity {
     private EditText etNameOfManagingHead, etNameOfPco, etPhoneFaxNo;
     private EditText etPcoAccreditationNo, etDateOfEffectivity, etEmailAddress;
 
-    private Button btnSave, btnNext, btnAdd;
+    private Button btnSave, btnAdd;
 
     private GeneralInfoService        service;
     private MonitoringProgressService monitoringService;
 
+    // Single entry fields — overwritten each Add
     private String tableProductLines   = "";
     private String tableProductionRate = "";
     private String tableActualRate     = "";
-    private String tableYearCovered    = "";
-    private String tableVolCuM         = "";
+
+    // Multiple entry fields — appended each Add
+    private final List<String> listYearCovered = new ArrayList<>();
+    private final List<String> listVolCuM      = new ArrayList<>();
 
     private long lastSavedRecordId = -1;
 
@@ -80,32 +87,32 @@ public class GeneralinfoController extends AppCompatActivity {
         monitoringService = new MonitoringProgressServiceImpl(this);
 
         bindViews();
+        setupDatePicker();
         setupMonitoringDropdown();
         setupMutuallyExclusiveCheckboxes();
         setupEmployeeTotalWatcher();
         setupAddButton();
         setupSaveButton();
-
     }
 
     private void bindViews() {
-        etEmbIdNo = findViewById(R.id.etEmbIdNo);
-        etReportControl = findViewById(R.id.etReportControl);
-        etDateInspection = findViewById(R.id.etDateOfInspection);
-        actTypeOfMonitoring = findViewById(R.id.etTypeOfMonitoring);
+        etEmbIdNo            = findViewById(R.id.etEmbIdNo);
+        etReportControl      = findViewById(R.id.etReportControl);
+        etDateInspection     = findViewById(R.id.etDateOfInspection);
+        actTypeOfMonitoring  = findViewById(R.id.etTypeOfMonitoring);
 
-        cbPd1586 = findViewById(R.id.cbPd1586);
-        cbRa9003 = findViewById(R.id.cbRa9003);
-        cbRa9275 = findViewById(R.id.cbRa9275);
-        cbRa9275Survey = findViewById(R.id.cbRa9275Survey);
+        cbPd1586        = findViewById(R.id.cbPd1586);
+        cbRa9003        = findViewById(R.id.cbRa9003);
+        cbRa9275        = findViewById(R.id.cbRa9275);
+        cbRa9275Survey  = findViewById(R.id.cbRa9275Survey);
         cbRa9275Routine = findViewById(R.id.cbRa9275Routine);
-        cbRa6969 = findViewById(R.id.cbRa6969);
+        cbRa6969        = findViewById(R.id.cbRa6969);
         cbRa6969Survey  = findViewById(R.id.cbRa6969Survey);
         cbRa6969Routine = findViewById(R.id.cbRa6969Routine);
-        cbRa8749 = findViewById(R.id.cbRa8749);
-        cbRa8749Survey = findViewById(R.id.cbRa8749Survey);
+        cbRa8749        = findViewById(R.id.cbRa8749);
+        cbRa8749Survey  = findViewById(R.id.cbRa8749Survey);
         cbRa8749Routine = findViewById(R.id.cbRa8749Routine);
-        rgMcCovered = findViewById(R.id.rgMcCovered);
+        rgMcCovered     = findViewById(R.id.rgMcCovered);
 
         etNameOfEstablishment  = findViewById(R.id.etNameOfEstablishment);
         etProponent            = findViewById(R.id.etProponent);
@@ -142,8 +149,27 @@ public class GeneralinfoController extends AppCompatActivity {
         etEmailAddress       = findViewById(R.id.etEmailAddress);
 
         btnSave = findViewById(R.id.btnSave);
-
         btnAdd  = findViewById(R.id.btnAdd);
+    }
+
+    private void setupDatePicker() {
+        etDateInspection.setOnClickListener(v -> {
+            Calendar cal = Calendar.getInstance();
+            new DatePickerDialog(this,
+                    (view, year, month, day) -> {
+                        String[] monthNames = {
+                                "January", "February", "March", "April",
+                                "May", "June", "July", "August",
+                                "September", "October", "November", "December"
+                        };
+                        String formattedDate = monthNames[month] + " " + day + ", " + year;
+                        etDateInspection.setText(formattedDate);
+                    },
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)
+            ).show();
+        });
     }
 
     private void setupMonitoringDropdown() {
@@ -203,28 +229,62 @@ public class GeneralinfoController extends AppCompatActivity {
             String yc  = etYearCovered.getText().toString().trim();
             String vol = etVolCuM.getText().toString().trim();
 
-            if (pl.isEmpty() && pr.isEmpty() && apr.isEmpty()) {
-                Toast.makeText(this,
-                        "Please fill in at least Product Lines or Production Rate.",
-                        Toast.LENGTH_SHORT).show();
+            if (pl.isEmpty()) {
+                Toast.makeText(this, "Please fill in Product Lines.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (pr.isEmpty()) {
+                Toast.makeText(this, "Please fill in Production Rate.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (apr.isEmpty()) {
+                Toast.makeText(this, "Please fill in Actual Production Rate.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (yc.isEmpty()) {
+                Toast.makeText(this, "Please fill in Year Covered.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (vol.isEmpty()) {
+                Toast.makeText(this, "Please fill in Vol (cu. m).", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            // Store single entry fields
             tableProductLines   = pl;
             tableProductionRate = pr;
             tableActualRate     = apr;
-            tableYearCovered    = yc;
-            tableVolCuM         = vol;
 
-            tvTableProductLines.setText(pl);
-            tvTableProductionRate.setText(pr);
-            tvSubYearCovered.setText(yc);
-            tvSubVolCuM.setText(vol);
+            // Append Year Covered and Vol to list
+            listYearCovered.add(yc);
+            listVolCuM.add(vol);
 
-            Toast.makeText(this, "Row added to table.", Toast.LENGTH_SHORT).show();
+            // Update table display immediately
+            tvTableProductLines.setText(tableProductLines);
+            tvTableProductionRate.setText(tableProductionRate);
+
+            StringBuilder sbYearCovered = new StringBuilder();
+            StringBuilder sbVolCuM      = new StringBuilder();
+            for (int i = 0; i < listYearCovered.size(); i++) {
+                if (i > 0) {
+                    sbYearCovered.append("\n");
+                    sbVolCuM.append("\n");
+                }
+                sbYearCovered.append(listYearCovered.get(i));
+                sbVolCuM.append(listVolCuM.get(i));
+            }
+            tvSubYearCovered.setText(sbYearCovered.toString());
+            tvSubVolCuM.setText(sbVolCuM.toString());
+
+            // Clear only Year Covered and Vol for next entry
+            etYearCovered.setText("");
+            etVolCuM.setText("");
+
+            Toast.makeText(this,
+                    "Row " + listYearCovered.size() + " added successfully.",
+                    Toast.LENGTH_SHORT).show();
         });
     }
-
 
     private void setupSaveButton() {
         btnSave.setOnClickListener(v -> {
@@ -247,28 +307,12 @@ public class GeneralinfoController extends AppCompatActivity {
         });
     }
 
-    private void setupNextButton() {
-        btnNext.setOnClickListener(v -> {
-            if (lastSavedRecordId == -1) {
-
-                new AlertDialog.Builder(this)
-                        .setTitle("Save Required")
-                        .setMessage("Please fill in and save the form before proceeding.")
-                        .setPositiveButton("OK", null)
-                        .show();
-                return;
-            }
-            navigateToDetail();
-        });
-    }
-
     private void navigateToDetail() {
         Intent intent = new Intent(this, PurposeController.class);
         intent.putExtra("EMPLOYEE_ID", employeeId);
         intent.putExtra("RECORD_ID",   (int) lastSavedRecordId);
         startActivity(intent);
     }
-
 
     private String validateAllFields() {
         if (isEmpty(etEmbIdNo))               return "EMB ID No.";
@@ -295,10 +339,7 @@ public class GeneralinfoController extends AppCompatActivity {
         if (isEmpty(etMaleEmployees))         return "No. of Male Employees";
         if (isEmpty(etFemaleEmployees))       return "No. of Female Employees";
 
-        if (tableProductLines.isEmpty() && tableProductionRate.isEmpty())
-            return "Product Lines / Production Rate (press Add)";
-        if (tableYearCovered.isEmpty())       return "Year Covered (press Add)";
-        if (tableVolCuM.isEmpty())            return "Volume Cu.M. (press Add)";
+        // Information 2 is fully optional — skipped fields will be stored as N/A
 
         if (isEmpty(etNameOfManagingHead))    return "Name of Managing Head";
         if (isEmpty(etNameOfPco))             return "Name of PCO";
@@ -321,72 +362,99 @@ public class GeneralinfoController extends AppCompatActivity {
                 .setPositiveButton("OK", null)
                 .show();
     }
-    private boolean performSave() {
-        String embId      = etEmbIdNo.getText().toString().trim();
-        String repCtrl    = etReportControl.getText().toString().trim();
-        String typeMonit  = actTypeOfMonitoring.getText().toString().trim();
-        String dateInsp   = etDateInspection.getText().toString().trim();
-        String laws       = buildLawsString();
-        String nameEst    = etNameOfEstablishment.getText().toString().trim();
-        String proponent  = etProponent.getText().toString().trim();
-        String mailing    = etMailingAddress.getText().toString().trim();
-        String geoN       = etGeoN.getText().toString().trim();
-        String geoE       = etGeoE.getText().toString().trim();
-        String projLoc    = etProjectLocation.getText().toString().trim();
-        String natBiz     = etNatureOfBusiness.getText().toString().trim();
-        String yearEst    = etYearEstablished.getText().toString().trim();
-        String psic       = etPsicCode.getText().toString().trim();
-        String opHrs      = etOperatingHoursPerDay.getText().toString().trim();
-        String opDw       = etOperatingDaysPerWeek.getText().toString().trim();
-        String opDy       = etOperatingDaysPerYear.getText().toString().trim();
-        String male       = etMaleEmployees.getText().toString().trim();
-        String female     = etFemaleEmployees.getText().toString().trim();
-        String total      = etTotalEmployees.getText().toString().trim();
-        String mgHead     = etNameOfManagingHead.getText().toString().trim();
-        String pco        = etNameOfPco.getText().toString().trim();
-        String pcoAccred  = etPcoAccreditationNo.getText().toString().trim();
-        String dateEff    = etDateOfEffectivity.getText().toString().trim();
-        String phone      = etPhoneFaxNo.getText().toString().trim();
-        String email      = etEmailAddress.getText().toString().trim();
 
+    private boolean performSave() {
+        String embId     = etEmbIdNo.getText().toString().trim();
+        String repCtrl   = etReportControl.getText().toString().trim();
+        String typeMonit = actTypeOfMonitoring.getText().toString().trim();
+        String dateInsp  = etDateInspection.getText().toString().trim();
+        String laws      = buildLawsString();
+        String nameEst   = etNameOfEstablishment.getText().toString().trim();
+        String proponent = etProponent.getText().toString().trim();
+        String mailing   = etMailingAddress.getText().toString().trim();
+        String geoN      = etGeoN.getText().toString().trim();
+        String geoE      = etGeoE.getText().toString().trim();
+        String projLoc   = etProjectLocation.getText().toString().trim();
+        String natBiz    = etNatureOfBusiness.getText().toString().trim();
+        String yearEst   = etYearEstablished.getText().toString().trim();
+        String psic      = etPsicCode.getText().toString().trim();
+        String opHrs     = etOperatingHoursPerDay.getText().toString().trim();
+        String opDw      = etOperatingDaysPerWeek.getText().toString().trim();
+        String opDy      = etOperatingDaysPerYear.getText().toString().trim();
+        String male      = etMaleEmployees.getText().toString().trim();
+        String female    = etFemaleEmployees.getText().toString().trim();
+        String total     = etTotalEmployees.getText().toString().trim();
+        String mgHead    = etNameOfManagingHead.getText().toString().trim();
+        String pco       = etNameOfPco.getText().toString().trim();
+        String pcoAccred = etPcoAccreditationNo.getText().toString().trim();
+        String dateEff   = etDateOfEffectivity.getText().toString().trim();
+        String phone     = etPhoneFaxNo.getText().toString().trim();
+        String email     = etEmailAddress.getText().toString().trim();
+
+        // Information 2 — use N/A if user skipped the section
+        String savedProductLines   = tableProductLines.isEmpty()   ? "N/A" : tableProductLines;
+        String savedProductionRate = tableProductionRate.isEmpty() ? "N/A" : tableProductionRate;
+        String savedActualRate     = tableActualRate.isEmpty()     ? "N/A" : tableActualRate;
+        String savedYearCovered    = listYearCovered.isEmpty()     ? "N/A" : String.join("\n", listYearCovered);
+        String savedVolCuM         = listVolCuM.isEmpty()          ? "N/A" : String.join("\n", listVolCuM);
+
+        // Save Report Info
         ReportInfoModel report = new ReportInfoModel();
         report.setEmployeeId(employeeId);
         report.setEmbId(embId);
         report.setReportControl(repCtrl);
         report.setTypeMonitoring(typeMonit);
         report.setDateOfInspection(dateInsp);
-        if (!service.saveReportInfo(report)) { Log.e(TAG, "FAILED: saveReportInfo"); return false; }
+        if (!service.saveReportInfo(report)) {
+            Log.e(TAG, "FAILED: saveReportInfo");
+            return false;
+        }
+
+        // Save Establishment Info
         EstablishmentModel est = new EstablishmentModel();
         est.setEmployeeId(employeeId);
         est.setLaws(laws);
         est.setNameOfEstablishment(nameEst);
         est.setProponent(proponent);
         est.setMailingAddress(mailing);
-        est.setGeoN(geoN); est.setGeoE(geoE);
+        est.setGeoN(geoN);
+        est.setGeoE(geoE);
         est.setProjectLocation(projLoc);
         est.setNatureOfBusiness(natBiz);
         est.setYearEstablish(yearEst);
         est.setPsicCode(psic);
-        est.setOpHoursDay(opHrs); est.setOpDayWeek(opDw); est.setOpDayYear(opDy);
-        est.setMale(male); est.setFemale(female); est.setNumberOfEmployee(total);
-        est.setProductLines(tableProductLines);
-        est.setProductionRate(tableProductionRate);
-        est.setActualProductionRate(tableActualRate);
+        est.setOpHoursDay(opHrs);
+        est.setOpDayWeek(opDw);
+        est.setOpDayYear(opDy);
+        est.setMale(male);
+        est.setFemale(female);
+        est.setNumberOfEmployee(total);
+        est.setProductLines(savedProductLines);
+        est.setProductionRate(savedProductionRate);
+        est.setActualProductionRate(savedActualRate);
         est.setNameOfManagingHead(mgHead);
         est.setNameOfPCO(pco);
         est.setPcoAccreditationNo(pcoAccred);
         est.setDateOfEffectivity(dateEff);
         est.setPhoneFaxNo(phone);
         est.setEmailAddress(email);
-        if (!service.saveEstablishmentInfo(est)) { Log.e(TAG, "FAILED: saveEstablishmentInfo"); return false; }
+        if (!service.saveEstablishmentInfo(est)) {
+            Log.e(TAG, "FAILED: saveEstablishmentInfo");
+            return false;
+        }
 
+        // Save Year Covered Info
         YearCoverdInfoModel yr = new YearCoverdInfoModel();
         yr.setEmployeeId(employeeId);
-        yr.setYearCovered(tableYearCovered);
-        yr.setVolCuM(tableVolCuM);
-        yr.setTotal(tableVolCuM);
-        if (!service.saveYearCoveredInfo(yr)) { Log.e(TAG, "FAILED: saveYearCoveredInfo"); return false; }
+        yr.setYearCovered(savedYearCovered);
+        yr.setVolCuM(savedVolCuM);
+        yr.setTotal(savedVolCuM);
+        if (!service.saveYearCoveredInfo(yr)) {
+            Log.e(TAG, "FAILED: saveYearCoveredInfo");
+            return false;
+        }
 
+        // Save Monitoring Record
         MonitoringRecord rec = new MonitoringRecord();
         rec.setEmployeeId(employeeId);
         rec.setEmbId(embId);
@@ -397,25 +465,30 @@ public class GeneralinfoController extends AppCompatActivity {
         rec.setNameOfEstablishment(nameEst);
         rec.setProponent(proponent);
         rec.setMailingAddress(mailing);
-        rec.setGeoN(geoN); rec.setGeoE(geoE);
+        rec.setGeoN(geoN);
+        rec.setGeoE(geoE);
         rec.setProjectLocation(projLoc);
         rec.setNatureOfBusiness(natBiz);
         rec.setYearEstablish(yearEst);
         rec.setPsicCode(psic);
-        rec.setOpHoursDay(opHrs); rec.setOpDayWeek(opDw); rec.setOpDayYear(opDy);
-        rec.setMale(male); rec.setFemale(female); rec.setNumberOfEmployee(total);
-        rec.setProductLines(tableProductLines);
-        rec.setProductionRate(tableProductionRate);
-        rec.setActualProductionRate(tableActualRate);
+        rec.setOpHoursDay(opHrs);
+        rec.setOpDayWeek(opDw);
+        rec.setOpDayYear(opDy);
+        rec.setMale(male);
+        rec.setFemale(female);
+        rec.setNumberOfEmployee(total);
+        rec.setProductLines(savedProductLines);
+        rec.setProductionRate(savedProductionRate);
+        rec.setActualProductionRate(savedActualRate);
         rec.setNameOfManagingHead(mgHead);
         rec.setNameOfPCO(pco);
         rec.setPcoAccreditationNo(pcoAccred);
         rec.setDateOfEffectivity(dateEff);
         rec.setPhoneFaxNo(phone);
         rec.setEmailAddress(email);
-        rec.setYearCovered(tableYearCovered);
-        rec.setVolCuM(tableVolCuM);
-        rec.setTotal(tableVolCuM);
+        rec.setYearCovered(savedYearCovered);
+        rec.setVolCuM(savedVolCuM);
+        rec.setTotal(savedVolCuM);
         rec.setIsComplete(0);
 
         lastSavedRecordId = monitoringService.saveRecord(rec);
@@ -457,6 +530,7 @@ public class GeneralinfoController extends AppCompatActivity {
         if (sb.length() > 0) sb.append(", ");
         sb.append(law);
     }
+
     private int parseSafeInt(String v) {
         try { return Integer.parseInt(v); } catch (Exception e) { return 0; }
     }

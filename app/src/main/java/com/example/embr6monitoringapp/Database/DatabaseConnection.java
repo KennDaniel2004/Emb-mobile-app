@@ -137,6 +137,7 @@ public class DatabaseConnection extends SQLiteOpenHelper {
             }
             Log.d(TAG, "onUpgrade v10: Monitoring_Records extended");
         }
+
         if (oldVersion < 13) {
             upgradePurposeTableToIntegerStructure(db);
         }
@@ -315,7 +316,7 @@ public class DatabaseConnection extends SQLiteOpenHelper {
                 "Approved_By TEXT, Approved_By_Position TEXT," +
                 "is_complete INTEGER DEFAULT 0, " +
                 "is_synced INTEGER DEFAULT 0, " +
-                "is_archived INTEGER DEFAULT 0)"; // Added is_archived column
+                "is_archived INTEGER DEFAULT 0)";
     }
 
     private String createComplianceTable() {

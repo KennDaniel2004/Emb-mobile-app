@@ -10,12 +10,18 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
 import androidx.core.content.FileProvider;
 
 import com.example.embr6monitoringapp.Models.MonitoringRecord;
+import com.example.embr6monitoringapp.Models.PurposeModel;
+import com.example.embr6monitoringapp.Models.ComplianceStatusModel;
+import com.example.embr6monitoringapp.Database.DatabaseConnection;
 import com.example.embr6monitoringapp.R;
 
 import org.apache.poi.xwpf.usermodel.Document;
@@ -80,14 +86,32 @@ public class ExportManager {
 
     public void exportAll(MonitoringRecord record, ExportCallback cb) {
         new Thread(() -> {
-            exportPdf(record, cb);
-            exportDocx(record, cb);
+            PurposeModel        purpose    = queryPurpose(record.getEmployeeId());
+            ComplianceStatusModel compliance = queryCompliance(record.getEmployeeId());
+            exportPdf(record, purpose, compliance, cb);
+            exportDocx(record, purpose, compliance, cb);
+        }).start();
+    }
+
+    /** Convenience overload — fetches purpose & compliance from DB automatically. */
+    public void exportPdf(MonitoringRecord rec, ExportCallback cb) {
+        new Thread(() -> {
+            exportPdf(rec, queryPurpose(rec.getEmployeeId()),
+                    queryCompliance(rec.getEmployeeId()), cb);
+        }).start();
+    }
+
+    /** Convenience overload — fetches purpose & compliance from DB automatically. */
+    public void exportDocx(MonitoringRecord rec, ExportCallback cb) {
+        new Thread(() -> {
+            exportDocx(rec, queryPurpose(rec.getEmployeeId()),
+                    queryCompliance(rec.getEmployeeId()), cb);
         }).start();
     }
 
     // ==================== PDF EXPORT ====================
 
-    public void exportPdf(MonitoringRecord rec, ExportCallback cb) {
+    private void exportPdf(MonitoringRecord rec, PurposeModel p, ComplianceStatusModel cs, ExportCallback cb) {
         try {
             File file = buildFile(rec.getEmployeeId(), rec.getId(), "pdf");
             PdfDocument doc = new PdfDocument();
@@ -99,7 +123,7 @@ public class ExportManager {
             int y = drawPdfHeader(c1);
             y = drawPdfTitle(c1, rec, y);
             y = drawPdfGeneralInfo(c1, rec, y);
-            y = drawPdfPurpose(c1, rec, y);
+            y = drawPdfPurpose(c1, rec, p, y);
             drawPdfFooter(c1, 1);
             doc.finishPage(p1);
 
@@ -108,7 +132,7 @@ public class ExportManager {
             PdfDocument.Page p2 = doc.startPage(pi2);
             Canvas c2 = p2.getCanvas();
             int y2 = MARGIN_L;
-            y2 = drawPdfCompliancePermits(c2, rec, y2);
+            y2 = drawPdfCompliancePermits(c2, cs, y2);
             y2 = drawPdfRecommendations(c2, rec, y2);
             drawPdfSignatures(c2, rec, y2);
             drawPdfFooter(c2, 2);
@@ -349,7 +373,8 @@ public class ExportManager {
         c.drawText(display, x1 + 3, y - 2, txt);
     }
 
-    private int drawPdfPurpose(Canvas c, MonitoringRecord r, int y) {
+    private int drawPdfPurpose(Canvas c, MonitoringRecord r, PurposeModel p, int y) {
+        if (p == null) p = new PurposeModel();
         Paint secBg = new Paint();
         secBg.setColor(GREEN);
         c.drawRect(MARGIN_L, y - 2, MARGIN_R, y + 14, secBg);
@@ -358,7 +383,7 @@ public class ExportManager {
         y += 18;
 
         Paint norm = normal(8, Color.BLACK);
-        String va = r.getVerifyAccuracy() == 1 ? "☒" : "☐";
+        String va = p.getVerifyAccuracy() == 1 ? "☒" : "☐";
         c.drawText(va + " Verify accuracy of information submitted by the establishment.",
                 MARGIN_L + 4, y, norm);
         y += 15;
@@ -371,18 +396,18 @@ public class ExportManager {
 
         String[][] permits = {
                 {"PMPIN Application",
-                        yn(r.getPmpinNew()),   yn(r.getPmpinRenewal())},
+                        yn(p.getPmpinNew()),   yn(p.getPmpinRenewal())},
                 {"Hazardous Waste Generator ID Registration",
-                        yn(r.getHwgidNew()),   yn(r.getHwgidRenewal())},
+                        yn(p.getHwgidNew()),   yn(p.getHwgidRenewal())},
                 {"Hazardous Waste Transporter Registration",
-                        yn(r.getHwtrNew()),    yn(r.getHwtrRenewal())},
+                        yn(p.getHwtrNew()),    yn(p.getHwtrRenewal())},
                 {"Hazardous Waste TSD Registration",
-                        yn(r.getHwtsdNew()),   yn(r.getHwtsdRenewal())},
+                        yn(p.getHwtsdNew()),   yn(p.getHwtsdRenewal())},
                 {"Permit to Operate Air Pollution Control Installation",
-                        yn(r.getPoapciNew()),  yn(r.getPoapciRenewal())},
+                        yn(p.getPoapciNew()),  yn(p.getPoapciRenewal())},
                 {"Discharge Permit",
-                        yn(r.getDpNew()),      yn(r.getDpRenewal())},
-                {"Others: " + s(r.getOtherPermit()), "", ""},
+                        yn(p.getDpNew()),      yn(p.getDpRenewal())},
+                {"Others: " + s(p.getOtherPermit()), "", ""},
         };
 
         for (String[] row : permits) {
@@ -393,25 +418,26 @@ public class ExportManager {
         }
         y += 8;
 
-        String dc  = r.getDetermineCompliance() == 1 ? "☒" : "☐";
-        String inv = r.getInvestigate()          == 1 ? "☒" : "☐";
-        String sv  = r.getSurvey()               == 1 ? "☒" : "☐";
+        String dc  = p.getDetermineCompliance() == 1 ? "☒" : "☐";
+        String inv = p.getInvestigate()          == 1 ? "☒" : "☐";
+        String sv  = p.getSurvey()               == 1 ? "☒" : "☐";
         c.drawText(dc  + " Determine compliance status with environmental regulations.",
                 MARGIN_L + 4, y, norm); y += 14;
         c.drawText(inv + " Investigate community complaints.",
                 MARGIN_L + 4, y, norm); y += 14;
         c.drawText(sv  + " Survey",
                 MARGIN_L + 4, y, norm); y += 14;
-        c.drawText("\u2610 Others: " + s(r.getOtherSpecify()),
+        c.drawText("\u2610 Others: " + s(p.getOtherSpecify()),
                 MARGIN_L + 4, y, norm); y += 18;
 
         y = drawPdfTableRow2Cols(c,
-                "Name of Contact Person:", s(r.getContactName()),
-                "Position / Designation:", s(r.getPosition()), y);
+                "Name of Contact Person:", s(p.getContactName()),
+                "Position / Designation:", s(p.getPosition()), y);
         return y + 4;
     }
 
-    private int drawPdfCompliancePermits(Canvas c, MonitoringRecord r, int y) {
+    private int drawPdfCompliancePermits(Canvas c, ComplianceStatusModel cs, int y) {
+        if (cs == null) cs = new ComplianceStatusModel();
         Paint secBg = new Paint();
         secBg.setColor(GREEN);
         c.drawRect(MARGIN_L, y - 2, MARGIN_R, y + 14, secBg);
@@ -426,19 +452,19 @@ public class ExportManager {
         int[] cols = {MARGIN_L, MARGIN_L + 100, MARGIN_L + 300, MARGIN_L + 420, MARGIN_R};
         y = drawPdfTableRow4(c, new String[]{"Environmental Law","Permits","Date of Issue","Expiry Date"}, cols, y, true);
 
-        y = drawPdfTableRow4(c, new String[]{"PD 1586","ECC 1: "+s(r.getPd1586Ecc1()),s(r.getPd1586Ecc1DateFrom()),s(r.getPd1586Ecc1DateTo())}, cols, y, false);
-        y = drawPdfTableRow4(c, new String[]{"","ECC 2: "+s(r.getPd1586Ecc2()),s(r.getPd1586Ecc2DateFrom()),s(r.getPd1586Ecc2DateTo())}, cols, y, false);
-        y = drawPdfTableRow4(c, new String[]{"","ECC 3: "+s(r.getPd1586Ecc3()),s(r.getPd1586Ecc3DateFrom()),s(r.getPd1586Ecc3DateTo())}, cols, y, false);
+        y = drawPdfTableRow4(c, new String[]{"PD 1586","ECC 1: "+s(cs.getPd1586Ecc1()),s(cs.getPd1586Ecc1DateFrom()),s(cs.getPd1586Ecc1DateTo())}, cols, y, false);
+        y = drawPdfTableRow4(c, new String[]{"","ECC 2: "+s(cs.getPd1586Ecc2()),s(cs.getPd1586Ecc2DateFrom()),s(cs.getPd1586Ecc2DateTo())}, cols, y, false);
+        y = drawPdfTableRow4(c, new String[]{"","ECC 3: "+s(cs.getPd1586Ecc3()),s(cs.getPd1586Ecc3DateFrom()),s(cs.getPd1586Ecc3DateTo())}, cols, y, false);
 
-        y = drawPdfTableRow4(c, new String[]{"RA 6969","DENR Registry ID: "+s(r.getRa6969DenrRegistry()),s(r.getRa6969DenrDateFrom()),s(r.getRa6969DenrDateTo())}, cols, y, false);
+        y = drawPdfTableRow4(c, new String[]{"RA 6969","DENR Registry ID: "+s(cs.getRa6969DenrRegistry()),s(cs.getRa6969DenrDateFrom()),s(cs.getRa6969DenrDateTo())}, cols, y, false);
         y = drawPdfTableRow4(c, new String[]{"","PCL Compliance Certificate","",""}, cols, y, false);
         y = drawPdfTableRow4(c, new String[]{"","Importer Clearance No.","",""}, cols, y, false);
         y = drawPdfTableRow4(c, new String[]{"","CCO Registry","",""}, cols, y, false);
         y = drawPdfTableRow4(c, new String[]{"","Permit to Transport","",""}, cols, y, false);
         y = drawPdfTableRow4(c, new String[]{"","Copy of COT issued by licensed TSD Facility","",""}, cols, y, false);
 
-        y = drawPdfTableRow4(c, new String[]{"RA 8749","PO No.: "+s(r.getRa8749PoNo()),s(r.getRa8749PoDateFrom()),s(r.getRa8749PoDateTo())}, cols, y, false);
-        y = drawPdfTableRow4(c, new String[]{"RA 9275","Discharge Permit No.: "+s(r.getRa9275DischargePermit()),s(r.getRa9275DischargeDateFrom()),s(r.getRa9275DischargeDateTo())}, cols, y, false);
+        y = drawPdfTableRow4(c, new String[]{"RA 8749","PO No.: "+s(cs.getRa8749PoNo()),s(cs.getRa8749PoDateFrom()),s(cs.getRa8749PoDateTo())}, cols, y, false);
+        y = drawPdfTableRow4(c, new String[]{"RA 9275","Discharge Permit No.: "+s(cs.getRa9275DischargePermit()),s(cs.getRa9275DischargeDateFrom()),s(cs.getRa9275DischargeDateTo())}, cols, y, false);
 
         y += 10;
         return y;
@@ -533,7 +559,7 @@ public class ExportManager {
 
     // ==================== DOCX EXPORT ====================
 
-    public void exportDocx(MonitoringRecord rec, ExportCallback cb) {
+    private void exportDocx(MonitoringRecord rec, PurposeModel p, ComplianceStatusModel cs, ExportCallback cb) {
         try {
             File file = buildFile(rec.getEmployeeId(), rec.getId(), "docx");
             XWPFDocument doc = new XWPFDocument();
@@ -541,8 +567,8 @@ public class ExportManager {
             addDocxHeader(doc);
             addDocxTitle(doc, rec);
             addDocxGeneralInfo(doc, rec);
-            addDocxPurpose(doc, rec);
-            addDocxCompliance(doc, rec);
+            addDocxPurpose(doc, rec, p);
+            addDocxCompliance(doc, cs);
             addDocxRecommendations(doc, rec);
             addDocxSignatures(doc, rec);
             addDocxDocumentFooter(doc);
@@ -778,10 +804,11 @@ public class ExportManager {
 
     // ==================== PURPOSE (DOCX) ====================
 
-    private void addDocxPurpose(XWPFDocument doc, MonitoringRecord r) {
+    private void addDocxPurpose(XWPFDocument doc, MonitoringRecord r, PurposeModel p) {
+        if (p == null) p = new PurposeModel();
         addDocxSectionHeader(doc, "2. PURPOSE OF INSPECTION");
 
-        String va = r.getVerifyAccuracy() == 1 ? "☒" : "☐";
+        String va = p.getVerifyAccuracy() == 1 ? "☒" : "☐";
         addDocxPara(doc, va + " Verify accuracy of information submitted by the establishment.", 10);
 
         XWPFTable pt = doc.createTable(8, 3);
@@ -791,13 +818,13 @@ public class ExportManager {
         setCellText(pt, 0, 2, "Renewal",     true);
 
         String[][] permits = {
-                {"PMPIN Application",                                    yn(r.getPmpinNew()),  yn(r.getPmpinRenewal())},
-                {"Hazardous Waste Generator ID Registration",            yn(r.getHwgidNew()),  yn(r.getHwgidRenewal())},
-                {"Hazardous Waste Transporter Registration",             yn(r.getHwtrNew()),   yn(r.getHwtrRenewal())},
-                {"Hazardous Waste TSD Registration",                     yn(r.getHwtsdNew()),  yn(r.getHwtsdRenewal())},
-                {"Permit to Operate Air Pollution Control Installation", yn(r.getPoapciNew()), yn(r.getPoapciRenewal())},
-                {"Discharge Permit",                                     yn(r.getDpNew()),     yn(r.getDpRenewal())},
-                {"Others: " + s(r.getOtherPermit()),                    "",                   ""},
+                {"PMPIN Application",                                    yn(p.getPmpinNew()),  yn(p.getPmpinRenewal())},
+                {"Hazardous Waste Generator ID Registration",            yn(p.getHwgidNew()),  yn(p.getHwgidRenewal())},
+                {"Hazardous Waste Transporter Registration",             yn(p.getHwtrNew()),   yn(p.getHwtrRenewal())},
+                {"Hazardous Waste TSD Registration",                     yn(p.getHwtsdNew()),  yn(p.getHwtsdRenewal())},
+                {"Permit to Operate Air Pollution Control Installation", yn(p.getPoapciNew()), yn(p.getPoapciRenewal())},
+                {"Discharge Permit",                                     yn(p.getDpNew()),     yn(p.getDpRenewal())},
+                {"Others: " + s(p.getOtherPermit()),                    "",                   ""},
         };
         for (int i = 0; i < permits.length; i++) {
             setCellText(pt, i + 1, 0, permits[i][0], false);
@@ -806,26 +833,27 @@ public class ExportManager {
         }
         styleWholeTable(pt);
 
-        String dc  = r.getDetermineCompliance() == 1 ? "☒" : "☐";
-        String inv = r.getInvestigate()          == 1 ? "☒" : "☐";
-        String sv  = r.getSurvey()               == 1 ? "☒" : "☐";
+        String dc  = p.getDetermineCompliance() == 1 ? "☒" : "☐";
+        String inv = p.getInvestigate()          == 1 ? "☒" : "☐";
+        String sv  = p.getSurvey()               == 1 ? "☒" : "☐";
         addDocxPara(doc, dc  + " Determine compliance status with environmental regulations.", 10);
         addDocxPara(doc, inv + " Investigate community complaints.", 10);
         addDocxPara(doc, sv  + " Survey", 10);
-        addDocxPara(doc, "\u2610 Others: " + s(r.getOtherSpecify()), 10);
+        addDocxPara(doc, "\u2610 Others: " + s(p.getOtherSpecify()), 10);
 
         XWPFTable ct = doc.createTable(1, 4);
         setTableWidth(ct, 9500);
         setCellText(ct, 0, 0, "Name of Contact Person:", false);
-        setCellText(ct, 0, 1, s(r.getContactName()), true);
+        setCellText(ct, 0, 1, s(p.getContactName()), true);
         setCellText(ct, 0, 2, "Position / Designation:", false);
-        setCellText(ct, 0, 3, s(r.getPosition()), true);
+        setCellText(ct, 0, 3, s(p.getPosition()), true);
         styleWholeTable(ct);
     }
 
     // ==================== COMPLIANCE (DOCX) ====================
 
-    private void addDocxCompliance(XWPFDocument doc, MonitoringRecord r) {
+    private void addDocxCompliance(XWPFDocument doc, ComplianceStatusModel cs) {
+        if (cs == null) cs = new ComplianceStatusModel();
         addDocxSectionHeader(doc, "3. COMPLIANCE STATUS");
 
         XWPFParagraph permitsTitle = doc.createParagraph();
@@ -843,22 +871,22 @@ public class ExportManager {
         setCellText(pt, 0, 3, "Expiry Date",       true);
 
         setCellText(pt, 1, 0, "PD 1586",                                       true);
-        setCellText(pt, 1, 1, "ECC 1: " + s(r.getPd1586Ecc1()),                false);
-        setCellText(pt, 1, 2, s(r.getPd1586Ecc1DateFrom()),                    false);
-        setCellText(pt, 1, 3, s(r.getPd1586Ecc1DateTo()),                      false);
+        setCellText(pt, 1, 1, "ECC 1: " + s(cs.getPd1586Ecc1()),                false);
+        setCellText(pt, 1, 2, s(cs.getPd1586Ecc1DateFrom()),                    false);
+        setCellText(pt, 1, 3, s(cs.getPd1586Ecc1DateTo()),                      false);
 
-        setCellText(pt, 2, 1, "ECC 2: " + s(r.getPd1586Ecc2()),                false);
-        setCellText(pt, 2, 2, s(r.getPd1586Ecc2DateFrom()),                    false);
-        setCellText(pt, 2, 3, s(r.getPd1586Ecc2DateTo()),                      false);
+        setCellText(pt, 2, 1, "ECC 2: " + s(cs.getPd1586Ecc2()),                false);
+        setCellText(pt, 2, 2, s(cs.getPd1586Ecc2DateFrom()),                    false);
+        setCellText(pt, 2, 3, s(cs.getPd1586Ecc2DateTo()),                      false);
 
-        setCellText(pt, 3, 1, "ECC 3: " + s(r.getPd1586Ecc3()),                false);
-        setCellText(pt, 3, 2, s(r.getPd1586Ecc3DateFrom()),                    false);
-        setCellText(pt, 3, 3, s(r.getPd1586Ecc3DateTo()),                      false);
+        setCellText(pt, 3, 1, "ECC 3: " + s(cs.getPd1586Ecc3()),                false);
+        setCellText(pt, 3, 2, s(cs.getPd1586Ecc3DateFrom()),                    false);
+        setCellText(pt, 3, 3, s(cs.getPd1586Ecc3DateTo()),                      false);
 
         setCellText(pt, 4, 0, "RA 6969",                                       true);
-        setCellText(pt, 4, 1, "DENR Registry ID: " + s(r.getRa6969DenrRegistry()), false);
-        setCellText(pt, 4, 2, s(r.getRa6969DenrDateFrom()),                    false);
-        setCellText(pt, 4, 3, s(r.getRa6969DenrDateTo()),                      false);
+        setCellText(pt, 4, 1, "DENR Registry ID: " + s(cs.getRa6969DenrRegistry()), false);
+        setCellText(pt, 4, 2, s(cs.getRa6969DenrDateFrom()),                    false);
+        setCellText(pt, 4, 3, s(cs.getRa6969DenrDateTo()),                      false);
 
         setCellText(pt, 5,  1, "PCL Compliance Certificate",                   false);
         setCellText(pt, 6,  1, "Importer Clearance No.",                       false);
@@ -867,18 +895,18 @@ public class ExportManager {
         setCellText(pt, 9,  1, "Copy of COT issued by licensed TSD Facility",  false);
 
         setCellText(pt, 10, 0, "RA 8749",                                      true);
-        setCellText(pt, 10, 1, "PO No.: " + s(r.getRa8749PoNo()),              false);
-        setCellText(pt, 10, 2, s(r.getRa8749PoDateFrom()),                     false);
-        setCellText(pt, 10, 3, s(r.getRa8749PoDateTo()),                       false);
+        setCellText(pt, 10, 1, "PO No.: " + s(cs.getRa8749PoNo()),              false);
+        setCellText(pt, 10, 2, s(cs.getRa8749PoDateFrom()),                     false);
+        setCellText(pt, 10, 3, s(cs.getRa8749PoDateTo()),                       false);
 
         setCellText(pt, 11, 0, "RA 9275",                                      true);
-        setCellText(pt, 11, 1, "Discharge Permit No.: " + s(r.getRa9275DischargePermit()), false);
-        setCellText(pt, 11, 2, s(r.getRa9275DischargeDateFrom()),              false);
-        setCellText(pt, 11, 3, s(r.getRa9275DischargeDateTo()),                false);
+        setCellText(pt, 11, 1, "Discharge Permit No.: " + s(cs.getRa9275DischargePermit()), false);
+        setCellText(pt, 11, 2, s(cs.getRa9275DischargeDateFrom()),              false);
+        setCellText(pt, 11, 3, s(cs.getRa9275DischargeDateTo()),                false);
 
         setCellText(pt, 12, 1,
                 "With MOA/Agreement for residuals disposed to a SLF w/ ECC: "
-                        + s(r.getRa9003MoaAgreement()), false);
+                        + s(cs.getRa9003MoaAgreement()), false);
 
         styleWholeTable(pt);
     }
@@ -1064,6 +1092,134 @@ public class ExportManager {
         CTTblWidth tblWidth = table.getCTTbl().getTblPr().addNewTblW();
         tblWidth.setType(STTblWidth.DXA);
         tblWidth.setW(BigInteger.valueOf(widthTwips));
+    }
+
+    // ==================== DB QUERY HELPERS ====================
+
+    /**
+     * Reads Purpose_Table for the given employeeId and returns a PurposeModel.
+     * Returns an empty model (all fields default) if no row is found.
+     */
+    private PurposeModel queryPurpose(String employeeId) {
+        PurposeModel m = new PurposeModel();
+        if (employeeId == null) return m;
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = DatabaseConnection.getInstance(context).getReadableDatabase();
+            c = db.rawQuery(
+                    "SELECT verifyAccuracy, pmpinNew, pmpinRenewal," +
+                            " hwgidNew, hwgidRenewal, hwtrNew, hwtrRenewal," +
+                            " hwtsdNew, hwtsdRenewal, poapciNew, poapciRenewal," +
+                            " dpNew, dpRenewal, otherPermit," +
+                            " othersPermitNew, othersPermitRenewal," +
+                            " determineCompliance, investigate, survey, othersCEMCRR," +
+                            " otherSpecify, contactName, position" +
+                            " FROM Purpose_Table WHERE Employee_Id = ? ORDER BY id DESC LIMIT 1",
+                    new String[]{employeeId});
+            if (c.moveToFirst()) {
+                m.setVerifyAccuracy   (c.getInt   (c.getColumnIndexOrThrow("verifyAccuracy")));
+                m.setPmpinNew         (c.getInt   (c.getColumnIndexOrThrow("pmpinNew")));
+                m.setPmpinRenewal     (c.getInt   (c.getColumnIndexOrThrow("pmpinRenewal")));
+                m.setHwgidNew         (c.getInt   (c.getColumnIndexOrThrow("hwgidNew")));
+                m.setHwgidRenewal     (c.getInt   (c.getColumnIndexOrThrow("hwgidRenewal")));
+                m.setHwtrNew          (c.getInt   (c.getColumnIndexOrThrow("hwtrNew")));
+                m.setHwtrRenewal      (c.getInt   (c.getColumnIndexOrThrow("hwtrRenewal")));
+                m.setHwtsdNew         (c.getInt   (c.getColumnIndexOrThrow("hwtsdNew")));
+                m.setHwtsdRenewal     (c.getInt   (c.getColumnIndexOrThrow("hwtsdRenewal")));
+                m.setPoapciNew        (c.getInt   (c.getColumnIndexOrThrow("poapciNew")));
+                m.setPoapciRenewal    (c.getInt   (c.getColumnIndexOrThrow("poapciRenewal")));
+                m.setDpNew            (c.getInt   (c.getColumnIndexOrThrow("dpNew")));
+                m.setDpRenewal        (c.getInt   (c.getColumnIndexOrThrow("dpRenewal")));
+                m.setOtherPermit      (c.getString(c.getColumnIndexOrThrow("otherPermit")));
+                m.setOthersPermitNew  (c.getInt   (c.getColumnIndexOrThrow("othersPermitNew")));
+                m.setOthersPermitRenewal(c.getInt (c.getColumnIndexOrThrow("othersPermitRenewal")));
+                m.setDetermineCompliance(c.getInt (c.getColumnIndexOrThrow("determineCompliance")));
+                m.setInvestigate      (c.getInt   (c.getColumnIndexOrThrow("investigate")));
+                m.setSurvey           (c.getInt   (c.getColumnIndexOrThrow("survey")));
+                m.setOthersCEMCRR     (c.getInt   (c.getColumnIndexOrThrow("othersCEMCRR")));
+                m.setOtherSpecify     (c.getString(c.getColumnIndexOrThrow("otherSpecify")));
+                m.setContactName      (c.getString(c.getColumnIndexOrThrow("contactName")));
+                m.setPosition         (c.getString(c.getColumnIndexOrThrow("position")));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "queryPurpose error", e);
+        } finally {
+            if (c  != null) c.close();
+        }
+        return m;
+    }
+
+    /**
+     * Reads Compliance_Status for the given employeeId and returns a ComplianceStatusModel.
+     * Returns an empty model (all fields null) if no row is found.
+     */
+    private ComplianceStatusModel queryCompliance(String employeeId) {
+        ComplianceStatusModel m = new ComplianceStatusModel();
+        if (employeeId == null) return m;
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = DatabaseConnection.getInstance(context).getReadableDatabase();
+            c = db.rawQuery(
+                    "SELECT Pd1586_Ecc1, Pd1586_Ecc1_DateFrom, Pd1586_Ecc1_DateTo," +
+                            " Pd1586_Ecc2, Pd1586_Ecc2_DateFrom, Pd1586_Ecc2_DateTo," +
+                            " Pd1586_Ecc3, Pd1586_Ecc3_DateFrom, Pd1586_Ecc3_DateTo," +
+                            " Ra6969_Denr, Ra6969_Denr_DateFrom, Ra6969_Denr_DateTo," +
+                            " Ra6969_Pcl, Ra6969_Pcl_DateFrom, Ra6969_Pcl_DateTo," +
+                            " Ra6969_Importer, Ra6969_Importer_DateFrom, Ra6969_Importer_DateTo," +
+                            " Ra6969_Cco, Ra6969_Cco_DateFrom, Ra6969_Cco_DateTo," +
+                            " Ra6969_Permit, Ra6969_Permit_DateFrom, Ra6969_Permit_DateTo," +
+                            " Ra6969_Cot, Ra6969_Cot_DateFrom, Ra6969_Cot_DateTo," +
+                            " Ra8749_PoNo, Ra8749_DateFrom, Ra8749_DateTo," +
+                            " Ra9275_Discharge, Ra9275_DateFrom, Ra9275_DateTo," +
+                            " Ra9003_Moa, Ra9003_DateFrom, Ra9003_DateTo" +
+                            " FROM Compliance_Status WHERE Employee_Id = ? ORDER BY id DESC LIMIT 1",
+                    new String[]{employeeId});
+            if (c.moveToFirst()) {
+                m.setPd1586Ecc1          (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc1")));
+                m.setPd1586Ecc1DateFrom  (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc1_DateFrom")));
+                m.setPd1586Ecc1DateTo    (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc1_DateTo")));
+                m.setPd1586Ecc2          (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc2")));
+                m.setPd1586Ecc2DateFrom  (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc2_DateFrom")));
+                m.setPd1586Ecc2DateTo    (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc2_DateTo")));
+                m.setPd1586Ecc3          (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc3")));
+                m.setPd1586Ecc3DateFrom  (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc3_DateFrom")));
+                m.setPd1586Ecc3DateTo    (c.getString(c.getColumnIndexOrThrow("Pd1586_Ecc3_DateTo")));
+                m.setRa6969DenrRegistry  (c.getString(c.getColumnIndexOrThrow("Ra6969_Denr")));
+                m.setRa6969DenrDateFrom  (c.getString(c.getColumnIndexOrThrow("Ra6969_Denr_DateFrom")));
+                m.setRa6969DenrDateTo    (c.getString(c.getColumnIndexOrThrow("Ra6969_Denr_DateTo")));
+                m.setRa6969PclCert       (c.getString(c.getColumnIndexOrThrow("Ra6969_Pcl")));
+                m.setRa6969PclDateFrom   (c.getString(c.getColumnIndexOrThrow("Ra6969_Pcl_DateFrom")));
+                m.setRa6969PclDateTo     (c.getString(c.getColumnIndexOrThrow("Ra6969_Pcl_DateTo")));
+                m.setRa6969ImporterClearance(c.getString(c.getColumnIndexOrThrow("Ra6969_Importer")));
+                m.setRa6969ImporterDateFrom (c.getString(c.getColumnIndexOrThrow("Ra6969_Importer_DateFrom")));
+                m.setRa6969ImporterDateTo   (c.getString(c.getColumnIndexOrThrow("Ra6969_Importer_DateTo")));
+                m.setRa6969CcoRegistry   (c.getString(c.getColumnIndexOrThrow("Ra6969_Cco")));
+                m.setRa6969CcoDateFrom   (c.getString(c.getColumnIndexOrThrow("Ra6969_Cco_DateFrom")));
+                m.setRa6969CcoDateTo     (c.getString(c.getColumnIndexOrThrow("Ra6969_Cco_DateTo")));
+                m.setRa6969PermitTransport(c.getString(c.getColumnIndexOrThrow("Ra6969_Permit")));
+                m.setRa6969PermitDateFrom (c.getString(c.getColumnIndexOrThrow("Ra6969_Permit_DateFrom")));
+                m.setRa6969PermitDateTo   (c.getString(c.getColumnIndexOrThrow("Ra6969_Permit_DateTo")));
+                m.setRa6969CotCopy       (c.getString(c.getColumnIndexOrThrow("Ra6969_Cot")));
+                m.setRa6969CotDateFrom   (c.getString(c.getColumnIndexOrThrow("Ra6969_Cot_DateFrom")));
+                m.setRa6969CotDateTo     (c.getString(c.getColumnIndexOrThrow("Ra6969_Cot_DateTo")));
+                m.setRa8749PoNo          (c.getString(c.getColumnIndexOrThrow("Ra8749_PoNo")));
+                m.setRa8749PoDateFrom    (c.getString(c.getColumnIndexOrThrow("Ra8749_DateFrom")));
+                m.setRa8749PoDateTo      (c.getString(c.getColumnIndexOrThrow("Ra8749_DateTo")));
+                m.setRa9275DischargePermit(c.getString(c.getColumnIndexOrThrow("Ra9275_Discharge")));
+                m.setRa9275DischargeDateFrom(c.getString(c.getColumnIndexOrThrow("Ra9275_DateFrom")));
+                m.setRa9275DischargeDateTo  (c.getString(c.getColumnIndexOrThrow("Ra9275_DateTo")));
+                m.setRa9003MoaAgreement  (c.getString(c.getColumnIndexOrThrow("Ra9003_Moa")));
+                m.setRa9003MoaDateFrom   (c.getString(c.getColumnIndexOrThrow("Ra9003_DateFrom")));
+                m.setRa9003MoaDateTo     (c.getString(c.getColumnIndexOrThrow("Ra9003_DateTo")));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "queryCompliance error", e);
+        } finally {
+            if (c  != null) c.close();
+        }
+        return m;
     }
 
     // ==================== NOTIFICATION LINKS ====================
